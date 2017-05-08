@@ -1,5 +1,5 @@
-# Background Log Manager
-Did you like background log manager? Give a ⭐️
+# iLog
+Did you like iLog? Give a ⭐️
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
@@ -7,7 +7,7 @@ Did you like background log manager? Give a ⭐️
 
 ![How it works](https://media.giphy.com/media/26FmQDKouh2j3z29i/giphy.gif)
 
-BackLogger is a simple log manager that uses a superfast SqlLite database to store your logs.
+iLog is a simple log manager that uses a superfast SqlLite database to store your logs.
 
 - [x] Four types of log: `debug`, `info`, `warn`, `error`
 - [x] Log **file**, **function**, **line** 
@@ -28,14 +28,14 @@ BackLogger is a simple log manager that uses a superfast SqlLite database to sto
 $ gem install cocoapods
 ```
 
-To integrate BackLogger into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate iLog into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'BackLogger'
+pod 'iLog'
 ```
 
 Then, run the following command:
@@ -46,10 +46,10 @@ $ pod install
 
 If you want to use our log viewer add this line to your `Podfile`:
 ```ruby
-pod 'BackLogger/UI'
+pod 'iLog/UI'
 ```
 
-`Backlogger UI` requires minimum **iOS 9**.
+`iLog/UI` requires minimum **iOS 9**.
 
 ### Carthage
 
@@ -65,29 +65,15 @@ $ brew install carthage
 To integrate SideMenu into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "leoneparise/backlogger" "master"
+github "leoneparise/iLog" "master"
 ```
 ## Usage
 
-Backlogger provides 4 log functions:
-
 ```swift
-debug(message:String)
+log(_ level:LogLevel, _ message:String)
 ```
 
-```swift
-info(message:String)
-```
-
-```swift
-warn(message:String)
-```
-
-```swift
-error(message:String)
-```
-
-Under the hood, these functions uses `LogManager` shared instance to log your data. `LogManager` is the Backlogger's main class and has the following signature:
+Under the hood, this functions uses `LogManager` shared instance to log your data. `LogManager` is the iLog's main class and has the following signature:
 
 ```swift
 public class LogManager {
@@ -104,10 +90,10 @@ public class LogManager {
   public static var shared: LogManager
     
   /// Get all logs. Depends if the mainDriver provides this feature
-  public func all(byType type: LogType? = nil, offset: Int = 0) -> [LogEntry]?
+public func all(level levelOrNil: LogLevel? = nil, offset: Int = 0) -> [LogEntry]?
   
   /// Log into all drivers
-  public func log(file: String = #file, line: UInt = #line, function: String = #function, type: LogType = .debug, message: String)  
+  public func log(file: String = #file, line: UInt = #line, function: String = #function, level: LogLevel = .debug, message: String)
 }
 ```
 
@@ -123,15 +109,27 @@ if let sqlLogDriver = SqlLogDriver(), let consoleLogDriver = ConsoleLogDriver() 
 ```
 If you want to receive log events, you can use the `NotificationCenter` and listen to `Notification.Name.LogManagerDidLog` notification. The object is the `LogEntry` struct used to store logs. You can achieve the same result setting the function `didLog` in **ANY** `LogManager` instance.
 
-### Backlogger UI
+### Log Viewer
 
-To view your logs you can use our `Log Viewer` view controller. Just instantiate our `BackLoggerViewController` and prent in your code:
+To view your logs you can use our `Log Viewer` view controller. Just instantiate our `LogViewerViewController` and prent in your code:
 
 ```swift
-self.present(BackLoggerViewController(), animated: true)
+self.present(LogViewerViewController(), animated: true)
+```
+
+### Store logs in your backend
+
+You can send logs to your server. `SqlLogDriver()` must be set as the `mainDriver` in you `LogManager` instance. Call the method `storeLogsInBackground(application:handler:)` on `applicationDidEnterBackground(_ application:)`, provide your own store handler and we will take care of the rest. 😉 Ex:
+
+```swift
+func applicationDidEnterBackground(_ application: UIApplication) {
+  LogManager.shared.storeLogsInBackground(applicatoin:application) { (entries, callback) in
+    // Call your api with entries
+    callback(success)
+  }
+}
 ```
 
 # TODO
-- [x] Save to server in background
 - [x] Evict past logs
 - [x] Filter and search in Log Viewer View Controller.
