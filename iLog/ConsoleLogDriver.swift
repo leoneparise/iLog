@@ -19,7 +19,7 @@ public class ConsoleLogDriver: LogDriver {
     public var didLog: DidLogCallback?
     public var logString:(LogEntry) -> String = { entry in
         let dateFormatter:DateFormatter = defaultDateFormatter()
-        return "\(dateFormatter.string(from: entry.createdAt)) [\(entry.level.stringValue)] \(entry.file):\(entry.line) \(entry.message)"
+        return "\(dateFormatter.string(from: entry.createdAt)) [\(entry.level.stringValue)] \(entry.file):\(entry.function):\(entry.line) \(entry.message)"
     }
     
     public init?(level: LogLevel = .debug) {
@@ -27,6 +27,8 @@ public class ConsoleLogDriver: LogDriver {
     }
     
     public func log(entry: LogEntry) {
+        guard entry.level.rawValue >= level.rawValue else { return }
+        
         print(logString(entry))
         didLog?(entry)
     }

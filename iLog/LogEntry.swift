@@ -17,7 +17,7 @@ fileprivate func next() -> Int64 {
 
 // MARK: - Model
 public enum LogLevel: Int64 {
-    case info = 0, debug = 10, warn = 20, error = 30
+    case debug = 0, info = 10, warn = 20, error = 30
     
     var stringValue:String {
         switch self {

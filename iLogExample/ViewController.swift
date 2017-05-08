@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     private var timer:Timer?
     
     @IBAction func debugAction() {
-        log(.debug, "Some debug message. Active only when #DEBUG is true")
+        log(.debug, "Some debug message. You can filter your log level with level property")
     }
     
     @IBAction func infoAction() {

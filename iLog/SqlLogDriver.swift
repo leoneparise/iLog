@@ -61,6 +61,8 @@ public class SqlLogDriver: LogDriver {
     
     // MARK: - Public Functions
     public func log(entry:LogEntry) {
+        guard entry.level.rawValue >= level.rawValue else { return }
+        
         do {
             try db.run(tbl_logs.insert(
                             col_level <- entry.level.rawValue,
