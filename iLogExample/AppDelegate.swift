@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             #else
                 LogManager.shared.drivers = [consoleLogDriver]
             #endif
+            
+            // Uncomment to set shared log level
+            //LogManager.shared.level = .info
         }
         
         return true

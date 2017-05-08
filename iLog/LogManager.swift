@@ -22,6 +22,12 @@ public class LogManager {
     
     // MARK: Public
     
+    
+    /// LogManager level
+    public var level:LogLevel = .debug {
+        didSet { didSetLevel() }
+    }
+    
     /// Callback used to notify a log event. This callback is called on ANY log event from ANY LogManager.
     public var didLog: DidLogCallback?
     
@@ -102,6 +108,12 @@ public class LogManager {
             driver.didLog = {[weak self] entry in
                 self?.postDidLogNotification(entry: entry)
             }
+        }
+    }
+    
+    private func didSetLevel() {
+        for driver in drivers {
+            driver.level = self.level
         }
     }
     
