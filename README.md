@@ -90,7 +90,7 @@ public class LogManager {
   public static var shared: LogManager
     
   /// Get all logs. Depends if the mainDriver provides this feature
-public func all(level levelOrNil: LogLevel? = nil, offset: Int = 0) -> [LogEntry]?
+  public func all(level levelOrNil: LogLevel? = nil, offset: Int = 0) -> [LogEntry]?
   
   /// Log into all drivers
   public func log(file: String = #file, line: UInt = #line, function: String = #function, level: LogLevel = .debug, message: String)
