@@ -62,6 +62,8 @@
 		B5F7BA7A875FDF9DD9239EDB2FC872FF /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2299F878E4F458C3D572CF3DC2C6FE /* Connection.swift */; };
 		B62583899597868BB481EAB8E189C715 /* TimelineTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCAED427D158FF169D625A27EE228651 /* TimelineTableViewHeader.xib */; };
 		B83B2674C59030EB5790396C839DC0D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B7388D8C65EE5B71DFB0798BF87CCB /* Foundation.framework */; };
+		B9B6316D1EC1FE9F005C92ED /* UIView+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6316C1EC1FE9F005C92ED /* UIView+Draw.swift */; };
+		B9B6316F1EC20403005C92ED /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6316E1EC20403005C92ED /* CloseButton.swift */; };
 		BEC686BBA77E24ECE81FE069FC374370 /* LogEntryGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C23E9408FD88229820A390403416A0 /* LogEntryGroup.swift */; };
 		BF1D44FF79D456ACB4A01809DE2ECDEF /* Date+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341C078E3CE455C7D47DD2D18E52E16C /* Date+Compare.swift */; };
 		BFA2F58877640D1F12E6E846BFD6A0E5 /* Setter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1984B4A64B56B758EEDC9AFA62718EC5 /* Setter.swift */; };
@@ -128,8 +130,8 @@
 		0807D0D8FE3F594D18FE07AC4F67DA6A /* SwiftDate-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftDate-dummy.m"; sourceTree = "<group>"; };
 		0D6D676261E97973067BEE603A9F3686 /* TimelineViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		0E986B69DEED2F4BDD419A9481AAA3D7 /* CoreFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreFunctions.swift; path = Sources/SQLite/Typed/CoreFunctions.swift; sourceTree = "<group>"; };
-		0EC44AEEB5F66963D9CC275E93632851 /* Pods-iLogExample.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-iLogExample.modulemap"; sourceTree = "<group>"; };
-		108D563DA83C8EBEE206A0D393BC8FCB /* iLog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = iLog.framework; path = iLog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EC44AEEB5F66963D9CC275E93632851 /* Pods-iLogExample.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-iLogExample.modulemap"; sourceTree = "<group>"; };
+		108D563DA83C8EBEE206A0D393BC8FCB /* iLog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iLog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13645965E29141A4FE0011C48EC2397E /* DateInRegion+Math.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DateInRegion+Math.swift"; path = "Sources/SwiftDate/DateInRegion+Math.swift"; sourceTree = "<group>"; };
 		14175699A6250E3E8F889A872621830E /* Pods-iLogExample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iLogExample-acknowledgements.plist"; sourceTree = "<group>"; };
 		1984B4A64B56B758EEDC9AFA62718EC5 /* Setter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Setter.swift; path = Sources/SQLite/Typed/Setter.swift; sourceTree = "<group>"; };
@@ -139,7 +141,7 @@
 		2087A05B66607BA7C71C8DC74C00252E /* LogEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		2393BAC6F669494279AD02914D33CEE8 /* SQLite.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SQLite.h; path = Sources/SQLite/SQLite.h; sourceTree = "<group>"; };
 		24B9097375081DDE970F8175473C4C13 /* TimeZoneName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimeZoneName.swift; path = Sources/SwiftDate/TimeZoneName.swift; sourceTree = "<group>"; };
-		28C6C3CE043B5C6700A3B7FFA86D6B5E /* SQLite.swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SQLite.swift.modulemap; sourceTree = "<group>"; };
+		28C6C3CE043B5C6700A3B7FFA86D6B5E /* SQLite.swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SQLite.swift.modulemap; sourceTree = "<group>"; };
 		2B1FEA0B6F262DD8A36F082D082A697C /* TimelineDatasource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TimelineDatasource.swift; sourceTree = "<group>"; };
 		2E1EC0FAEE7D13B8B8B4B67183EC773B /* SwiftDate.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftDate.xcconfig; sourceTree = "<group>"; };
 		2F6459828F5CF486DF69E126AA4DEB3B /* Pods-iLogExample-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iLogExample-resources.sh"; sourceTree = "<group>"; };
@@ -155,7 +157,7 @@
 		49754D4B5B25C6205344EF58804BA2DB /* UIColor+Hex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		4F65D322B2399864C70259B21C2BEF2E /* SQLite.swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SQLite.swift-dummy.m"; sourceTree = "<group>"; };
 		512085A7D45D841B58B2B06FA663FDD2 /* LocaleName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LocaleName.swift; path = Sources/SwiftDate/LocaleName.swift; sourceTree = "<group>"; };
-		53428FB5D16DCD100B0CD899C60D3B78 /* SwiftDate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftDate.framework; path = SwiftDate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53428FB5D16DCD100B0CD899C60D3B78 /* SwiftDate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53F304C848ED89F5B6588818D24D3D7A /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/SQLite/Typed/Operators.swift; sourceTree = "<group>"; };
 		54C23E9408FD88229820A390403416A0 /* LogEntryGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogEntryGroup.swift; sourceTree = "<group>"; };
 		5698BCAA2A1DAC89A549F26838FF25FB /* ISO8601DateTimeFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ISO8601DateTimeFormatter.swift; path = Sources/SwiftDate/ISO8601DateTimeFormatter.swift; sourceTree = "<group>"; };
@@ -183,27 +185,29 @@
 		8ED064B5ABEFA3486BC0BAC2CB8ABD61 /* Pods-iLogExample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iLogExample-frameworks.sh"; sourceTree = "<group>"; };
 		8FB730A6A4208E76E96807804BCB55B3 /* DateInRegion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateInRegion.swift; path = Sources/SwiftDate/DateInRegion.swift; sourceTree = "<group>"; };
 		913A78A0E199634460CB1817945C018F /* iLog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = iLog.xcconfig; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		955E23AEA04DE7BE45086756FD257715 /* SQLite-Bridging.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SQLite-Bridging.m"; path = "Sources/SQLiteObjc/SQLite-Bridging.m"; sourceTree = "<group>"; };
 		964105CE0AD340D9C3CFB35BC28E4B6B /* DateTimeInterval.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateTimeInterval.swift; path = Sources/SwiftDate/DateTimeInterval.swift; sourceTree = "<group>"; };
 		9A40EC1F72492D13D8570ECA39A1B2CE /* SwiftDate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5527B936EE9C1717880D24570F8D7D /* fts3_tokenizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fts3_tokenizer.h; path = Sources/SQLiteObjc/fts3_tokenizer.h; sourceTree = "<group>"; };
-		9F0A03171D9982162B14A54E8F866104 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = SQLite.swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F0A03171D9982162B14A54E8F866104 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7BB26EABF458D13A3F567AB9EFDFD7 /* SQLite-Bridging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SQLite-Bridging.h"; path = "Sources/SQLiteObjc/include/SQLite-Bridging.h"; sourceTree = "<group>"; };
 		9FF66EA0FF108640E39997472B96C1FD /* FTS5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS5.swift; path = Sources/SQLite/Extensions/FTS5.swift; sourceTree = "<group>"; };
 		A02A1C1DF76A9072D4EC1C7BBA38BEB8 /* Value.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Value.swift; path = Sources/SQLite/Core/Value.swift; sourceTree = "<group>"; };
 		A20593F1BD13F30C654F4A7D85175B9D /* SQLite.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SQLite.swift-prefix.pch"; sourceTree = "<group>"; };
-		A40AF3C45D0B7D577747D1F600AC42AA /* Pods_iLogExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iLogExample.framework; path = "Pods-iLogExample.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A40AF3C45D0B7D577747D1F600AC42AA /* Pods_iLogExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iLogExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC273CF90E87604B5E04FD56754DBF5B /* Statement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Statement.swift; path = Sources/SQLite/Core/Statement.swift; sourceTree = "<group>"; };
 		B1C0F470679E0929C2BCAB02A1C11CCF /* LogManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		B4530AB9683EA4500672EA4DA1F101AF /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "TimeInterval+Extensions.swift"; path = "Sources/SwiftDate/TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		B4F4C7DCE16D375A06CFCD69F787153A /* DateInRegion+Compare.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DateInRegion+Compare.swift"; path = "Sources/SwiftDate/DateInRegion+Compare.swift"; sourceTree = "<group>"; };
 		B7CF4D9323473FC6CDB93A86AA1D5718 /* Date+Components.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Components.swift"; path = "Sources/SwiftDate/Date+Components.swift"; sourceTree = "<group>"; };
+		B9B6316C1EC1FE9F005C92ED /* UIView+Draw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Draw.swift"; sourceTree = "<group>"; };
+		B9B6316E1EC20403005C92ED /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		BA0B81AE7A0B677513B4595FC161E205 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		BCAED427D158FF169D625A27EE228651 /* TimelineTableViewHeader.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = TimelineTableViewHeader.xib; sourceTree = "<group>"; };
 		BD2A8E9490BAC39DFAB617FB77BFBD6C /* iLog-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iLog-dummy.m"; sourceTree = "<group>"; };
 		BFFD5F15137F2EB7D00EFBD84763E93E /* CalendarName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarName.swift; path = Sources/SwiftDate/CalendarName.swift; sourceTree = "<group>"; };
-		C085621B3CD203FC081613429F803C64 /* SwiftDate.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftDate.modulemap; sourceTree = "<group>"; };
+		C085621B3CD203FC081613429F803C64 /* SwiftDate.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftDate.modulemap; sourceTree = "<group>"; };
 		C2FCD53E4EC01DE717BF365FF37B9E56 /* DateInRegionFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateInRegionFormatter.swift; path = Sources/SwiftDate/DateInRegionFormatter.swift; sourceTree = "<group>"; };
 		C30E6E4C6C13D2E59028D43DF62B3E68 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Sources/SQLite/Helpers.swift; sourceTree = "<group>"; };
 		C65D4E42B66A9581C175400F360B71D1 /* Commons.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Commons.swift; path = Sources/SwiftDate/Commons.swift; sourceTree = "<group>"; };
@@ -214,7 +218,7 @@
 		CBC5A97CDF94D2B762712DF9AD6244C0 /* DateComponents+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DateComponents+Extension.swift"; path = "Sources/SwiftDate/DateComponents+Extension.swift"; sourceTree = "<group>"; };
 		CCF987F5865AFA8C472D7A6BA2C0611A /* iLog-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iLog-prefix.pch"; sourceTree = "<group>"; };
 		D10F9167797AE8BA544D9B10DA2EF30D /* FTS4.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS4.swift; path = Sources/SQLite/Extensions/FTS4.swift; sourceTree = "<group>"; };
-		D3EFA2AB8B6DC674E641A1F8B5B937EC /* iLog.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = iLog.modulemap; sourceTree = "<group>"; };
+		D3EFA2AB8B6DC674E641A1F8B5B937EC /* iLog.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = iLog.modulemap; sourceTree = "<group>"; };
 		D5EC360448A0F17DCD973614A8320DDE /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF655BBF7844F4279DA7ED3DC2090E8 /* Pods-iLogExample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iLogExample-dummy.m"; sourceTree = "<group>"; };
 		DE0C435C50D54B739D41B4F17597B7BE /* Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Foundation.swift; path = Sources/SQLite/Foundation.swift; sourceTree = "<group>"; };
@@ -323,7 +327,6 @@
 				158FC06605B4C2D307E79BB9130292BC /* standard */,
 				A5D0099F15564E23DC0ECF3CDCD243C0 /* Support Files */,
 			);
-			name = SQLite.swift;
 			path = SQLite.swift;
 			sourceTree = "<group>";
 		};
@@ -376,7 +379,6 @@
 				6659753F83DE0D27B4016C8F7CAAFDE8 /* TimelineTableViewCell.xib */,
 				BCAED427D158FF169D625A27EE228651 /* TimelineTableViewHeader.xib */,
 			);
-			name = iLogUI;
 			path = iLogUI;
 			sourceTree = "<group>";
 		};
@@ -390,7 +392,6 @@
 				3CDAAC06D7558AA4E3585EC88816EF79 /* Sequence+RemoveNils.swift */,
 				1B2BA1BC2163C4059D341EE272DDAE32 /* SqlLogDriver.swift */,
 			);
-			name = iLog;
 			path = iLog;
 			sourceTree = "<group>";
 		};
@@ -508,7 +509,6 @@
 				59E23D4876B7CFFB8DD53CCAC15630F0 /* Resources */,
 				128B989B01F01172811BA25B2A9BDCC9 /* Support Files */,
 			);
-			name = SwiftDate;
 			path = SwiftDate;
 			sourceTree = "<group>";
 		};
@@ -532,8 +532,9 @@
 				C693796CCFB073249E5360E46E64C892 /* TimelineTableViewHeader.swift */,
 				0D6D676261E97973067BEE603A9F3686 /* TimelineViewController.swift */,
 				49754D4B5B25C6205344EF58804BA2DB /* UIColor+Hex.swift */,
+				B9B6316C1EC1FE9F005C92ED /* UIView+Draw.swift */,
+				B9B6316E1EC20403005C92ED /* CloseButton.swift */,
 			);
-			name = iLogUI;
 			path = iLogUI;
 			sourceTree = "<group>";
 		};
@@ -758,6 +759,7 @@
 			files = (
 				22103E3AB50A3C7A5522BA7375380ADB /* ConsoleLogDriver.swift in Sources */,
 				43F061B486580363EF089AFD7397F247 /* iLog-dummy.m in Sources */,
+				B9B6316D1EC1FE9F005C92ED /* UIView+Draw.swift in Sources */,
 				D2E9521B69F7F7B6D3B4DCB4C39E668E /* LogDriver.swift in Sources */,
 				A6FC862E4C6434E0F297B59BD8E51ED3 /* LogEntry.swift in Sources */,
 				BEC686BBA77E24ECE81FE069FC374370 /* LogEntryGroup.swift in Sources */,
@@ -767,6 +769,7 @@
 				D1D1C6A19399E5E298E5E6EB57D95ECF /* Sequence+RemoveNils.swift in Sources */,
 				5892D7BC6F222B56FD29AA04731CB339 /* SqlLogDriver.swift in Sources */,
 				039BF97437B368C8D221CBF125E38DFE /* TimelineBulletView.swift in Sources */,
+				B9B6316F1EC20403005C92ED /* CloseButton.swift in Sources */,
 				7F077B46BBD15B02890642ED74E54205 /* TimelineDatasource.swift in Sources */,
 				536189FAE3C25D1FC2B8392D5DC3A5D3 /* TimelineTableViewCell.swift in Sources */,
 				108241AED341DCF0DCFB5CC1F0B630B8 /* TimelineTableViewHeader.swift in Sources */,
@@ -846,7 +849,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -885,7 +888,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -925,7 +928,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1009,7 +1012,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1044,7 +1047,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1080,7 +1083,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1159,7 +1162,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1195,7 +1198,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CONFIGURATION_BUILD_DIR = "$PODS_CONFIGURATION_BUILD_DIR";
+				CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;

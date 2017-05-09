@@ -102,6 +102,13 @@ public class LogManager {
         }
     }
     
+    /// Clear all drivers
+    public func clear() {
+        for driver in drivers {
+            driver.clear()
+        }
+    }
+    
     // MARK: Private
     private func didSetDrivers() {
         if let driver = self.mainDriver {

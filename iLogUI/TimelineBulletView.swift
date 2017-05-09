@@ -61,40 +61,25 @@ class TimelineBulletView: UIView {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
         if isFirst {
-            drawLine(from: CGPoint(x: w/2, y: h/2), to: CGPoint(x: w/2, y:h), context: ctx)
+            drawLine(ctx,
+                     from: CGPoint(x: w/2, y: h/2),
+                     to: CGPoint(x: w/2, y:h),
+                     lineWidth: lineWidth,
+                     color: lineColor)
         } else {
-            drawLine(from: CGPoint(x: w/2, y: 0), to: CGPoint(x: w/2, y:h), context: ctx)
+            drawLine(ctx,
+                     from: CGPoint(x: w/2, y: 0),
+                     to: CGPoint(x: w/2, y:h),
+                     lineWidth: lineWidth,
+                     color: lineColor)
         }
         if showBullet {
-            drawCircle(center: CGPoint(x: w/2, y: h/2), size:bulletSize, context: ctx)
+            drawCircle(ctx,
+                       center: CGPoint(x: w/2, y: h/2),
+                       size:bulletSize,
+                       borderWidth: 1.0,
+                       fillColor: bulletColor,
+                       borderColor: bulletColor)
         }
-    }
-}
-
-extension TimelineBulletView {
-    func drawLine(from: CGPoint, to:CGPoint, context ctx:CGContext) {
-        ctx.setStrokeColor(lineColor.cgColor)
-        ctx.setLineWidth(lineWidth)
-        ctx.move(to: CGPoint(x: from.x, y: from.y))
-        ctx.addLine(to: CGPoint(x: to.x, y: to.y))
-        ctx.strokePath()
-    }
-    
-    func drawCircle(center:CGPoint, size:CGSize, context ctx: CGContext) {
-        let rect = CGRect(x: center.x - size.width / 2,
-                          y: center.y - size.height / 2,
-                          width: size.width,
-                          height: size.height)
-        
-        // Add circle
-        ctx.setFillColor(bulletColor.cgColor)
-        ctx.addEllipse(in: rect)
-        ctx.fillPath()
-        
-        // Add circle border
-        ctx.setStrokeColor(lineColor.cgColor)
-        ctx.setLineWidth(lineWidth)
-        ctx.addEllipse(in: rect)
-        ctx.strokePath()
     }
 }

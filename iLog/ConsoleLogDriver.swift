@@ -40,4 +40,8 @@ public class ConsoleLogDriver: LogDriver {
     public func store(_ handler: ([LogEntry], (Bool) -> Void) -> Void) {
         
     }
+    
+    public func clear() {
+        
+    }
 }

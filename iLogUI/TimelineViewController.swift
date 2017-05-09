@@ -21,10 +21,13 @@ public class TimelineViewController: UITableViewController {
         self.title = "Log Viewer"
         
         // Configure log manager
-        logManager = LogManager(drivers: [SqlLogDriver(logFile:self.logFile)].removeNils())
-        logManager.didLog = {[unowned self] entry in
-            self.dataSource.prepend(entries: [entry])
-        }
+        logManager = LogManager.shared
+        
+        NotificationCenter.default
+            .addObserver(self,
+                         selector: #selector(didLog(notification:)),
+                         name: Notification.Name.LogManagerDidLog,
+                         object: nil)
         
         // Configure datasource
         if dataSource == nil {
@@ -78,17 +81,22 @@ public class TimelineViewController: UITableViewController {
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 50
-        
+        tableView.tableFooterView = UIView()
         // Register cell
         let bundle = Bundle(for: TimelineViewController.self)
         let cellNib = UINib(nibName: "TimelineTableViewCell", bundle: bundle)
         tableView.register(cellNib, forCellReuseIdentifier: TimelineDatasource.cellIdentifier)
         
         // Configure navigation bar
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close",
-                                                                style: .plain,
-                                                                target: self,
-                                                                action: #selector(close))
+        let closeButton = CloseButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        closeButton.padding = 5
+        closeButton.lineWidth = 2
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash,
+                                                                 target: self,
+                                                                 action: #selector(clear))
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -129,11 +137,28 @@ public class TimelineViewController: UITableViewController {
         self.tableView.endUpdates()
     }
     
+    // MARK: - Selectors
     @objc private func close() {
         if let nav = self.navigationController {
             nav.dismiss(animated: true, completion: nil)
         } else {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    @objc private func clear() {
+        logManager.clear()
+        
+        guard let entries = logManager.all() else { return }
+        dataSource.set(entries: entries)
+    }
+    
+    @objc private func didLog(notification:Notification) {
+        guard let entry = notification.object as? LogEntry else { return }
+        self.dataSource.prepend(entries: [entry])
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }

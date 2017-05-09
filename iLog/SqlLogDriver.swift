@@ -25,7 +25,13 @@ public class SqlLogDriver: LogDriver {
     fileprivate let col_createdAt = Expression<Int64>("created_at")
     fileprivate let col_stored = Expression<Bool>("stored")
     fileprivate let col_order = Expression<Int64>("order_seq")
-            
+    
+    /**
+     Create a SqlLogDriver instance.
+     - parameter level: minimum log level
+     - parameter logFile: log file name. All logs are atored in user's document directory
+     - parameter inMemory: use in memory database. **In memory databases doesn't have a shared state**
+    */
     public init?(level:LogLevel = .debug, logFile:String = "logs.sqlite3", inMemory:Bool = false) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
         let logFileUrl = documentDirectory.appendingPathComponent(logFile)
@@ -100,6 +106,14 @@ public class SqlLogDriver: LogDriver {
                     self.update(entry: entry)
                 }
             }
+        }
+    }
+    
+    public func clear() {
+        do {
+            let _ = try db.run(tbl_logs.delete())                
+        } catch {
+            print("iLog >> Can't clear log")
         }
     }
 }
