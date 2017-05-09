@@ -14,7 +14,7 @@ public func log(file:String = #file, line:UInt = #line, function:String = #funct
 }
 
 public extension Notification.Name {
-    static let LogManagerDidLog = Notification.Name("LogManagerDidLog")
+    public static let LogManagerDidLog = Notification.Name("LogManagerDidLog")
 }
 
 public class LogManager {
