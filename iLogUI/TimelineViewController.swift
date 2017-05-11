@@ -49,16 +49,16 @@ open class TimelineViewController: UITableViewController {
             self.tableView.reloadData()
         }
         
-        dataSource.didInsert = { [unowned self] changes in
-            self.apply(changes: changes, withAddAnimation: .top)
+        dataSource.didAppend = { [unowned self] changes in
+            self.tableView.reloadData()
         }
         
-        dataSource.didAppend = { [unowned self] changes in
-            let adds = changes.filter{ $0.type == .add }
-            let updates = changes.filter{ $0.type == .update }
+        dataSource.didInsert = { [unowned self] changes in
+            let addChanges = changes.filter{ $0.type == .add }
+            let updateChanges = changes.filter{ $0.type == .sectionUpdate }
             
-            self.apply(changes:adds, withAddAnimation: .bottom)
-            self.apply(changes:updates)
+            self.apply(changes: addChanges, withAddAnimation: .top)
+            self.apply(changes: updateChanges)
         }
         
         tableView.dataSource = dataSource
@@ -150,12 +150,10 @@ open class TimelineViewController: UITableViewController {
                 self.tableView.insertSections([change.indexPath.section], with: addAnimation)
             }
             
-            if change.type == .add {
-                self.tableView.insertRows(at: [change.indexPath], with: addAnimation)
-            }
-            
-            if change.type == .update {
-                self.tableView.reloadRows(at: [change.indexPath], with: .none)
+            switch change.type {
+            case .add: self.tableView.insertRows(at: [change.indexPath], with: addAnimation)
+            case .update: self.tableView.reloadRows(at: [change.indexPath], with: .none)
+            case .sectionUpdate: self.tableView.reloadSections([change.indexPath.section], with: .none)
             }
         }
         self.tableView.endUpdates()

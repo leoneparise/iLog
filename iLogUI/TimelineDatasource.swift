@@ -10,7 +10,7 @@ import UIKit
 import SwiftDate
 
 public struct Change {
-    public enum ChangeType { case add, update }
+    public enum ChangeType { case add, update, sectionUpdate }
     
     public let indexPath:IndexPath
     public let createSection:Bool
@@ -31,7 +31,7 @@ public class TimelineDatasource:NSObject {
     
     public var didSet: (([LogEntry]) -> Void)?
     public var didInsert: (([Change]) -> Void)?
-    public var didAppend: (([Change]) -> Void)?
+    public var didAppend: (([LogEntry]) -> Void)?
     
     public var configureCell: ((UITableViewCell, LogEntry, Bool) -> Void)?
     public var configureHeader: ((UIView, LogEntryGroup) -> Void)?
@@ -39,15 +39,15 @@ public class TimelineDatasource:NSObject {
     public func prepend(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
         offset += entries.count
-        let changes = entries.map(self.prepend)
+        let changes = entries.flatMap(self.prepend)
         didInsert?(changes)
     }
     
     public func append(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
         offset += entries.count
-        let changes = entries.flatMap(self.append)
-        didAppend?(changes)
+        let _ = entries.flatMap(self.append)
+        didAppend?(entries)
     }
     
     public func set(entries:[LogEntry]) {
@@ -78,28 +78,36 @@ public class TimelineDatasource:NSObject {
         if let section = groups.index(of: LogEntryGroup(entry: entry)) {
             groups[section].append(entry)
             let indexPath = IndexPath(row: groups[section].count - 1, section: section)
-            let lastIndexPath = IndexPath(row: max(0, indexPath.row - 1), section: section)
             
             return [
                 Change(indexPath: indexPath),
-                Change(indexPath: lastIndexPath, type: .update)
+                Change(indexPath: lastIndexPath(from: indexPath), type: .update)
             ]
         } else {
             groups.append(LogEntryGroup(entry: entry))
             let indexPath = IndexPath(row: 0, section: groups.count - 1)
-            return [Change(indexPath: indexPath, createSection: true)]
+            
+            return [
+                Change(indexPath: indexPath, createSection: true),
+                Change(indexPath: lastIndexPath(from: indexPath), type: .update)
+            ]
         }
     }
     
-    private func prepend(entry:LogEntry) -> Change {
+    private func prepend(entry:LogEntry) -> [Change] {
         if let section = groups.index(of: LogEntryGroup(entry: entry)) {
             groups[section].insert(entry, at: 0)
             let indexPath = IndexPath(row: 0, section: section)
-            return Change(indexPath: indexPath)
+            return [
+                Change(indexPath: indexPath)
+            ]
         } else {
             groups.insert(LogEntryGroup(entry: entry), at: 0)
             let indexPath = IndexPath(row: 0, section: 0)
-            return Change(indexPath: indexPath, createSection: true)
+            return [
+                Change(indexPath: indexPath, createSection: true),
+                Change(indexPath: nextIndexPath(from: indexPath), type: .sectionUpdate),
+            ]
         }
     }
     
@@ -154,6 +162,22 @@ public class TimelineDatasource:NSObject {
         }
         
         return wasInserted() ? Change(indexPath: indexPath!, createSection: createSession) : nil
+    }
+    
+    private func lastIndexPath(from indexPath:IndexPath) -> IndexPath {
+        let (row, section) = (indexPath.row, indexPath.section)
+        let lastSection = row == 0 && section > 0 ? section - 1 : section
+        let lastRow = row > 0 ? row - 1 : count(forSection: lastSection) - 1
+        
+        return IndexPath(row: lastRow, section: lastSection)
+    }
+    
+    private func nextIndexPath(from indexPath:IndexPath) -> IndexPath {
+        let (row, section) = (indexPath.row, indexPath.section)
+        let nextRow = row < count(forSection: section) - 1 ? row + 1 : 0
+        let nextSection = section < count - 1 && nextRow == 0 ? section + 1 : section
+        
+        return IndexPath(row: nextRow, section: nextSection)
     }
 }
 
