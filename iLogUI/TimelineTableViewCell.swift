@@ -43,8 +43,6 @@ public class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
     public var level:LogLevel = .debug {
         didSet {
             levelLabel.level = level
-            bulletView.lineColor = level.color
-            bulletView.bulletColor = level.color
         }
     }
     
@@ -54,5 +52,9 @@ public class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
     
     public var function:String? {
         didSet { functionLabel.text = function }
-    }    
+    }
+    
+    public var isLast:Bool = false {
+        didSet { bulletView.isLast = isLast }
+    }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class TimelineViewController: UITableViewController {
+open class TimelineViewController: UITableViewController {
     open var dataSource:TimelineDatasource!
     private var logManager:LogManager!
     
@@ -34,7 +34,7 @@ public class TimelineViewController: UITableViewController {
             dataSource = TimelineDatasource()
         }
         
-        dataSource.configureCell = { cell, entry in
+        dataSource.configureCell = { cell, entry, isLast in
             guard let entryCell = cell as? TimelineTableViewCell else { return }
             entryCell.level = entry.level
             entryCell.file = entry.file
@@ -42,38 +42,23 @@ public class TimelineViewController: UITableViewController {
             entryCell.message = entry.message
             entryCell.createdAt = entry.createdAt
             entryCell.function = entry.function
+            entryCell.isLast = isLast
         }
         
         dataSource.didSet = { [unowned self] _ in
             self.tableView.reloadData()
         }
         
-        dataSource.willInsert = { [unowned self] in
-            self.tableView.beginUpdates()
-        }
-        
         dataSource.didInsert = { [unowned self] changes in
-            for change in changes {
-                if change.createSection {
-                    self.tableView.insertSections([change.indexPath.section], with: .top)
-                }
-                self.tableView.insertRows(at: [change.indexPath], with: .top)
-            }
-            self.tableView.endUpdates()
-        }
-        
-        dataSource.willAppend = { [unowned self] in
-            self.tableView.beginUpdates()
+            self.apply(changes: changes, withAddAnimation: .top)
         }
         
         dataSource.didAppend = { [unowned self] changes in
-            for change in changes {
-                if change.createSection {
-                    self.tableView.insertSections([change.indexPath.section], with: .bottom)
-                }
-                self.tableView.insertRows(at: [change.indexPath], with: .bottom)
-            }
-            self.tableView.endUpdates()
+            let adds = changes.filter{ $0.type == .add }
+            let updates = changes.filter{ $0.type == .update }
+            
+            self.apply(changes:adds, withAddAnimation: .bottom)
+            self.apply(changes:updates)
         }
         
         tableView.dataSource = dataSource
@@ -99,7 +84,7 @@ public class TimelineViewController: UITableViewController {
                                                                  action: #selector(clear))
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let logs = logManager.all() else { return }
         self.dataSource.set(entries: logs)
@@ -112,7 +97,7 @@ public class TimelineViewController: UITableViewController {
         return view
     }
     
-    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let (section, row) = (indexPath.section, indexPath.row)
         let rowCount = dataSource.count(forSection: section)
         
@@ -123,7 +108,7 @@ public class TimelineViewController: UITableViewController {
         }
     }
     
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
         self.tableView.beginUpdates()
@@ -156,6 +141,24 @@ public class TimelineViewController: UITableViewController {
     @objc private func didLog(notification:Notification) {
         guard let entry = notification.object as? LogEntry else { return }
         self.dataSource.prepend(entries: [entry])
+    }
+    
+    private func apply(changes:[Change], withAddAnimation addAnimation: UITableViewRowAnimation = .top) {
+        self.tableView.beginUpdates()
+        for change in changes {
+            if change.createSection {
+                self.tableView.insertSections([change.indexPath.section], with: addAnimation)
+            }
+            
+            if change.type == .add {
+                self.tableView.insertRows(at: [change.indexPath], with: addAnimation)
+            }
+            
+            if change.type == .update {
+                self.tableView.reloadRows(at: [change.indexPath], with: .none)
+            }
+        }
+        self.tableView.endUpdates()
     }
     
     deinit {

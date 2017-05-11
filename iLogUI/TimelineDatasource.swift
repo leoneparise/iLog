@@ -10,12 +10,16 @@ import UIKit
 import SwiftDate
 
 public struct Change {
+    public enum ChangeType { case add, update }
+    
     public let indexPath:IndexPath
     public let createSection:Bool
+    public let type:ChangeType
     
-    public init(indexPath:IndexPath, createSection:Bool) {
+    public init(indexPath: IndexPath, type: ChangeType = .add, createSection: Bool = false) {
         self.indexPath = indexPath
         self.createSection = createSection
+        self.type = type
     }
 }
 
@@ -26,19 +30,14 @@ public class TimelineDatasource:NSObject {
     public private(set) var offset:Int = 0
     
     public var didSet: (([LogEntry]) -> Void)?
-    
-    public var willInsert: (() -> Void)?
     public var didInsert: (([Change]) -> Void)?
-    
-    public var willAppend: (() -> Void)?
     public var didAppend: (([Change]) -> Void)?
     
-    public var configureCell: ((UITableViewCell, LogEntry) -> Void)?
+    public var configureCell: ((UITableViewCell, LogEntry, Bool) -> Void)?
     public var configureHeader: ((UIView, LogEntryGroup) -> Void)?
     
     public func prepend(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
-        willInsert?()
         offset += entries.count
         let changes = entries.map(self.prepend)
         didInsert?(changes)
@@ -46,9 +45,8 @@ public class TimelineDatasource:NSObject {
     
     public func append(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
-        willAppend?()
         offset += entries.count
-        let changes = entries.map(self.append)
+        let changes = entries.flatMap(self.append)
         didAppend?(changes)
     }
     
@@ -76,15 +74,20 @@ public class TimelineDatasource:NSObject {
     }
     
     // MARK: - Private
-    private func append(entry:LogEntry) -> Change {
+    private func append(entry:LogEntry) -> [Change] {
         if let section = groups.index(of: LogEntryGroup(entry: entry)) {
             groups[section].append(entry)
             let indexPath = IndexPath(row: groups[section].count - 1, section: section)
-            return Change(indexPath: indexPath, createSection: false)
+            let lastIndexPath = IndexPath(row: max(0, indexPath.row - 1), section: section)
+            
+            return [
+                Change(indexPath: indexPath),
+                Change(indexPath: lastIndexPath, type: .update)
+            ]
         } else {
             groups.append(LogEntryGroup(entry: entry))
             let indexPath = IndexPath(row: 0, section: groups.count - 1)
-            return Change(indexPath: indexPath, createSection: true)
+            return [Change(indexPath: indexPath, createSection: true)]
         }
     }
     
@@ -92,7 +95,7 @@ public class TimelineDatasource:NSObject {
         if let section = groups.index(of: LogEntryGroup(entry: entry)) {
             groups[section].insert(entry, at: 0)
             let indexPath = IndexPath(row: 0, section: section)
-            return Change(indexPath: indexPath, createSection: false)
+            return Change(indexPath: indexPath)
         } else {
             groups.insert(LogEntryGroup(entry: entry), at: 0)
             let indexPath = IndexPath(row: 0, section: 0)
@@ -166,7 +169,9 @@ extension TimelineDatasource: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimelineDatasource.cellIdentifier,
                                                  for: indexPath)
-        self.configureCell?(cell, getEntry(for: indexPath))
+        let isLast = (indexPath.section == count - 1) &&
+                     (indexPath.row == count(forSection: indexPath.section) - 1)
+        self.configureCell?(cell, getEntry(for: indexPath), isLast)
         return cell
     }
 }

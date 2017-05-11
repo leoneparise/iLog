@@ -35,6 +35,9 @@ class TimelineTableViewHeader: UIVisualEffectView {
     }
     
     var isFirst:Bool = false {
-        didSet { bulletView.isFirst = isFirst }
+        didSet {
+            bulletView.isFirst = isFirst
+            bulletView.isLast = false
+        }
     }
 }

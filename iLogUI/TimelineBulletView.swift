@@ -34,6 +34,10 @@ class TimelineBulletView: UIView {
         didSet { setNeedsDisplay() }
     }
     
+    @IBInspectable var isLast:Bool = true {
+        didSet { setNeedsDisplay() }
+    }
+    
     @IBInspectable var showBullet:Bool = true {
         didSet { setNeedsDisplay() }
     }
@@ -63,16 +67,23 @@ class TimelineBulletView: UIView {
         if isFirst {
             drawLine(ctx,
                      from: CGPoint(x: w/2, y: h/2),
-                     to: CGPoint(x: w/2, y:h),
+                     to: CGPoint(x: w/2, y: h),
+                     lineWidth: lineWidth,
+                     color: lineColor)
+        } else if isLast {
+            drawLine(ctx,
+                     from: CGPoint(x: w/2, y: 0),
+                     to: CGPoint(x: w/2, y: h/2),
                      lineWidth: lineWidth,
                      color: lineColor)
         } else {
             drawLine(ctx,
                      from: CGPoint(x: w/2, y: 0),
-                     to: CGPoint(x: w/2, y:h),
+                     to: CGPoint(x: w/2, y: h),
                      lineWidth: lineWidth,
                      color: lineColor)
         }
+        
         if showBullet {
             drawCircle(ctx,
                        center: CGPoint(x: w/2, y: h/2),

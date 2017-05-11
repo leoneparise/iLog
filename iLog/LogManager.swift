@@ -67,7 +67,9 @@ public class LogManager {
     
     /// Log
     public func log(file: String = #file, line: UInt = #line, function: String = #function, level: LogLevel = .debug, message: String) {
-        let fileName = file.components(separatedBy: "/").last ?? ""
+        let fileName = file.components(separatedBy: "/").last?
+                           .components(separatedBy: ".").first ?? ""
+        
         let entry = LogEntry(createdAt: nil, order: nil, stored: nil, level: level, file: fileName, line: line, function: function, message: message)
         
         for driver in drivers {
