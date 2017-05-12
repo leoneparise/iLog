@@ -108,6 +108,15 @@ public class LogManager {
 }
 ```
 
+
+### Examples
+
+```swift
+log(.debug, "My debug message")
+log(.info, "My info message")
+log(.error, "Something really bad happened...")
+```
+
 To disable the log database in prodution, put this code in your `application(_:didFinishLaunchWithOptions:)` method:
 ```swift
 if let sqlLogDriver = SqlLogDriver(), let consoleLogDriver = ConsoleLogDriver() {
