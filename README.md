@@ -11,13 +11,17 @@ iLog is a simple log manager that uses a superfast SqlLite database to store you
 
 - [x] Four types of log: `debug`, `info`, `warn`, `error`
 - [x] Log **file**, **function**, **line** 
-- [x] Swift 3.0
 - [x] Really Fast!
 - [x] Nice log viewer interface
 - [x] Log drivers: Console and Sql drivers included. You can write your own driver if you need
 - [x] Highly customizable
 - [x] Well documented
 - [x] and more...
+
+## Requirements
+- Swift 3
+- iOS 8+ for iLog
+- iOS 9+ for iLogUI
 
 ## Installation
 ### CocoaPods
@@ -77,6 +81,10 @@ Under the hood, this functions uses `LogManager` shared instance to log your dat
 
 ```swift
 public class LogManager {
+
+  /// LogManager level
+  public var level:LogLevel = .debug {
+
   /// Callback used to receive a log event. This function is called when ANY LogManager saves a log.
   public var didLog: DidLogCallback?
   
@@ -94,6 +102,9 @@ public class LogManager {
   
   /// Log into all drivers
   public func log(file: String = #file, line: UInt = #line, function: String = #function, level: LogLevel = .debug, message: String)
+  
+  /// Clear all logs
+  public func clear() {
 }
 ```
 
@@ -109,9 +120,51 @@ if let sqlLogDriver = SqlLogDriver(), let consoleLogDriver = ConsoleLogDriver() 
 ```
 If you want to receive log events, you can use the `NotificationCenter` and listen to `Notification.Name.LogManagerDidLog` notification. The object is the `LogEntry` struct used to store logs. You can achieve the same result setting the function `didLog` in **ANY** `LogManager` instance.
 
+### Implement your own driver
+`LogDriver` protocol has the following signature. Some drivers may support all features as **history**, **store** or **clear**. If your driver don't support these features, leave the implementation blank or return `nil`. Check `ConsoleLogDriver` and `SqlLodDriver` to know more.
+
+```swift
+public protocol LogDriver:class {
+    /// Function called when a log is send by this driver
+    var didLog: DidLogCallback? { get set }
+    
+    /// Minimum level to log **debug < info < warn < error**
+    var level:LogLevel { get set }
+    
+    /**
+     Logs a LogEntry. This is the main function of this driver
+     
+     - parameter entry: log entry
+     */
+    func log(entry:LogEntry)
+    
+    /**
+     Get all logs stored by this driver. **Some drivers doesn't offer log history** (eg: ConsoleLogDriver) returning `nil`.
+     
+     - parameter level: log level to filter
+     - parameter offset: offset to the history
+     - returns: Array of `LogEntry` if history is supported or `nil` otherwise
+     */
+    func all(level levelOrNil:LogLevel?, offset:Int) -> [LogEntry]?
+    
+    /**
+     Store logs in another service. The handler function must call the callback to tell this driver 
+     the the storing was completed with success. The driver must handle what should be stored or not.
+     
+     **Some drivers doesn't suppor store (eg: ConsoleLogDriver)**
+     
+     - parameter: handler Store function handler
+     */
+    func store(_ handler: StoreHandler)
+    
+    /// Clear logs. **Some drivers doesn't support clear**
+    func clear()
+}
+```
+
 ### Log Viewer
 
-To view your logs you can use our `Log Viewer` view controller. Just instantiate our `LogViewerViewController` and prent in your code:
+To view your logs you can use our **Log Viewer** view controller. Just instantiate our `LogViewerViewController` and present in your code:
 
 ```swift
 self.present(LogViewerViewController(), animated: true)
@@ -123,7 +176,7 @@ You can send logs to your server. `SqlLogDriver()` must be set as the `mainDrive
 
 ```swift
 func applicationDidEnterBackground(_ application: UIApplication) {
-  LogManager.shared.storeLogsInBackground(applicatoin:application) { (entries, callback) in
+  LogManager.shared.storeLogsInBackground(application:application) { (entries, callback) in
     // Call your api with entries
     callback(success)
   }
@@ -131,5 +184,4 @@ func applicationDidEnterBackground(_ application: UIApplication) {
 ```
 
 # TODO
-- [x] Evict past logs
 - [x] Filter and search in Log Viewer View Controller.
