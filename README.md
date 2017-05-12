@@ -130,7 +130,7 @@ if let sqlLogDriver = SqlLogDriver(), let consoleLogDriver = ConsoleLogDriver() 
 If you want to receive log events, you can use the `NotificationCenter` and listen to `Notification.Name.LogManagerDidLog` notification. The object is the `LogEntry` struct used to store logs. You can achieve the same result setting the function `didLog` in **ANY** `LogManager` instance.
 
 ### Implement your own driver
-`LogDriver` protocol has the following signature. Some drivers may support all features as **history**, **store** or **clear**. If your driver don't support these features, leave the implementation blank or return `nil`. Check `ConsoleLogDriver` and `SqlLodDriver` to know more.
+`LogDriver` protocol is defined as:
 
 ```swift
 public protocol LogDriver:class {
@@ -170,6 +170,8 @@ public protocol LogDriver:class {
     func clear()
 }
 ```
+
+Some drivers may support all features as **history**, **store** or **clear**. If your driver don't support these features, leave the implementation blank or return `nil`. Check `ConsoleLogDriver` and `SqlLodDriver` to know more.
 
 ### Log Viewer
 
