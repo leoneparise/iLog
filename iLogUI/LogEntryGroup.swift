@@ -9,7 +9,7 @@
 import Foundation
 import SwiftDate
 
-public struct LogEntryGroup {
+struct LogEntryGroup {
     public let timestamp:Date
     public private (set) var entries:[LogEntry]
     
@@ -37,6 +37,6 @@ extension LogEntryGroup: Hashable {
     }
 }
 
-public func ==(left:LogEntryGroup, rigth:LogEntryGroup) -> Bool {
+func ==(left:LogEntryGroup, rigth:LogEntryGroup) -> Bool {
     return left.timestamp.compare(to: rigth.timestamp, granularity: .minute) == .orderedSame
 }

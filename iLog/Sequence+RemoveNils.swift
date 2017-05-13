@@ -16,6 +16,8 @@ protocol OptionalType {
 extension Optional: OptionalType {}
 
 extension Sequence where Iterator.Element: OptionalType {
+    
+    /// Returns a new Sequence without `nil` values
     func removeNils() -> [Iterator.Element.Wrapped] {
         var result: [Iterator.Element.Wrapped] = []
         for element in self {

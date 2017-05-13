@@ -14,14 +14,18 @@ fileprivate func defaultDateFormatter() -> DateFormatter {
     return df
 }
 
+/// Default console log driver
 public class ConsoleLogDriver: LogDriver {
     public var level: LogLevel = .debug
     public var didLog: DidLogCallback?
+    
+    /// Entry format function
     public var logString:(LogEntry) -> String = { entry in
         let dateFormatter:DateFormatter = defaultDateFormatter()
         return "\(dateFormatter.string(from: entry.createdAt)) [\(entry.level.stringValue)] \(entry.file):\(entry.function):\(entry.line) \(entry.message)"
     }
     
+    /// Default initializer
     public init?(level: LogLevel = .debug) {
         self.level = level
     }
@@ -37,10 +41,12 @@ public class ConsoleLogDriver: LogDriver {
         return nil
     }
     
+    /// Not supported
     public func store(_ handler: ([LogEntry], (Bool) -> Void) -> Void) {
         
     }
     
+    /// Not supported
     public func clear() {
         
     }

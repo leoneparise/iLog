@@ -9,6 +9,7 @@
 import UIKit
 import SQLite
 
+/// Default SQL log driver
 public class SqlLogDriver: LogDriver {
     // MARK - Public Properties
     public var level: LogLevel = .debug
@@ -28,8 +29,11 @@ public class SqlLogDriver: LogDriver {
     
     /**
      Create a SqlLogDriver instance.
+     
      - parameter level: minimum log level
+     
      - parameter logFile: log file name. All logs are atored in user's document directory
+     
      - parameter inMemory: use in memory database. **In memory databases doesn't have a shared state**
     */
     public init?(level:LogLevel = .debug, logFile:String = "logs.sqlite3", inMemory:Bool = false) {

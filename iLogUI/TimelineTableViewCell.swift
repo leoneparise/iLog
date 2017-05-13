@@ -12,7 +12,7 @@ public protocol TimelineTableViewCellType:class {
     var expanded:Bool { get set }
 }
 
-public class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
+class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
     @IBOutlet weak var bulletView:TimelineBulletView!
     @IBOutlet weak var levelLabel:LogLevelLabel!
     @IBOutlet weak var fileLabel:UILabel!
@@ -21,40 +21,40 @@ public class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
     @IBOutlet weak var dateLabel:UILabel!
     @IBOutlet weak var functionLabel:UILabel!
             
-    public var expanded:Bool = false {
+    var expanded:Bool = false {
         didSet {
             messageLabel.numberOfLines = expanded ? 0 : 2
             functionLabel.isHidden = !expanded
         }
     }
     
-    public var line:UInt? {
+    var line:UInt? {
         didSet { lineLabel.text = line != nil ? "\(line!)" : "" }
     }
     
-    public var message:String? {
+    var message:String? {
         didSet { messageLabel.text = message }
     }
     
-    public var file:String? {
+    var file:String? {
         didSet { fileLabel.text = file != nil ? "\(file!):" : "" }
     }
     
-    public var level:LogLevel = .debug {
+    var level:LogLevel = .debug {
         didSet {
             levelLabel.level = level
         }
     }
     
-    public var createdAt:Date = Date() {
+    var createdAt:Date = Date() {
         didSet { dateLabel.text = String(format: "%02d", createdAt.second) }
     }
     
-    public var function:String? {
+    var function:String? {
         didSet { functionLabel.text = function }
     }
     
-    public var isLast:Bool = false {
+    var isLast:Bool = false {
         didSet { bulletView.isLast = isLast }
     }
 }

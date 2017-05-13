@@ -1,0 +1,180 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogDriver.swift",
+      "line": 20,
+      "symbol": "LogDriver",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 22,
+      "symbol": "LogLevel.debug",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 22,
+      "symbol": "LogLevel.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 22,
+      "symbol": "LogLevel.info",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 22,
+      "symbol": "LogLevel.warn",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 38,
+      "symbol": "LogEntry",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 88,
+      "symbol": "==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 94,
+      "symbol": "<(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 100,
+      "symbol": "<=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 105,
+      "symbol": ">(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLog/LogEntry.swift",
+      "line": 111,
+      "symbol": ">=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogEntryGroup.swift",
+      "line": null,
+      "symbol": "LogEntryGroup",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogLevelLabel.swift",
+      "line": 23,
+      "symbol": "LogLevelLabel",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogLevelLabel.swift",
+      "line": 24,
+      "symbol": "LogLevelLabel.level",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogLevelLabel.swift",
+      "line": 32,
+      "symbol": "LogLevelLabel.init(level:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogLevelLabel.swift",
+      "line": 37,
+      "symbol": "LogLevelLabel.init(frame:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogLevelLabel.swift",
+      "line": 42,
+      "symbol": "LogLevelLabel.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogLevelLabel.swift",
+      "line": 56,
+      "symbol": "LogLevelLabel.prepareForInterfaceBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogViewerViewController.swift",
+      "line": 13,
+      "symbol": "LogViewerViewController.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogViewerViewController.swift",
+      "line": 17,
+      "symbol": "LogViewerViewController.init(rootViewController:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogViewerViewController.swift",
+      "line": 21,
+      "symbol": "LogViewerViewController.init(navigationBarClass:toolbarClass:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogViewerViewController.swift",
+      "line": 25,
+      "symbol": "LogViewerViewController.init(nibName:bundle:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/LogViewerViewController.swift",
+      "line": 29,
+      "symbol": "LogViewerViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/TimelineTableViewCell.swift",
+      "line": 11,
+      "symbol": "TimelineTableViewCellType",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample/iLogUI/TimelineTableViewCell.swift",
+      "line": 12,
+      "symbol": "TimelineTableViewCellType.expanded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/leoneparise/Development/Workspaces/Other Projects/iLogExample"
+}

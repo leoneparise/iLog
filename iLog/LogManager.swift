@@ -9,19 +9,29 @@
 import Foundation
 import UIKit
 
+/**
+ Global log function. You should provide only `level` and `message` parameters. Leave the rest with it's default values
+ 
+ - parameter file: file where this log was fired.
+ - parameter line: line where this log was fired.
+ - parameter function: function where this log was fired.
+ - parameter level: this log level
+ - parameter message: this log message
+ */
 public func log(file:String = #file, line:UInt = #line, function:String = #function, _ level:LogLevel, _ message:String) {
     LogManager.shared.log(file: file, line: line, function: function, level: level, message: message)
 }
 
 public extension Notification.Name {
+    /// Fired when any manager's `log` method is called
     public static let LogManagerDidLog = Notification.Name("LogManagerDidLog")
 }
 
+/// Manager
 public class LogManager {
     private var storeBackgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
     
     // MARK: Public
-    
     
     /// LogManager level
     public var level:LogLevel = .debug {
@@ -47,6 +57,7 @@ public class LogManager {
         return LogManager(drivers: drivers.removeNils())
     }()
     
+    /// Default initializer
     public init(drivers: [LogDriver]) {
         self.drivers = drivers
         didSetDrivers()

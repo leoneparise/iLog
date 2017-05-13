@@ -16,6 +16,8 @@ fileprivate func next() -> Int64 {
 }
 
 // MARK: - Model
+
+/// Log level
 public enum LogLevel: Int64 {
     case debug = 0, info = 10, warn = 20, error = 30
     
@@ -29,16 +31,29 @@ public enum LogLevel: Int64 {
     }
 }
 
+/* 
+ Represents a log into iLog. This struct can be stored, transmited to an external service of printed
+ on console.
+ */
 open class LogEntry {
+    /// Log level
     public let level: LogLevel
+    /// Log message
     public let message: String
+    /// File that logged this entry
     public let file: String
+    /// Line in the file that logged this entry
     public let line: UInt
+    /// Function in the file that logged this entry
     public let function: String
+    /// When this log was created
     public let createdAt: Date
+    /// Log order. This information is used only when we have two logs at the same time.
     public let order:Int64
+    /// Check if this log was stored in a external service or not
     public let stored:Bool
     
+    /// Default initializer
     public init(createdAt: Date?, order:Int64?, stored:Bool?, level:LogLevel, file:String, line:UInt, function:String, message:String) {
         self.level = level
         self.message = message
@@ -50,6 +65,11 @@ open class LogEntry {
         self.stored = stored ?? false
     }
     
+    /**
+     Get the JSON structure of this log. **Can be overriden**
+     
+     - returns: JSON Dictionary of this log entry
+    */
     open func toJson() -> [AnyHashable : Any] {
         return [
             "level": self.level.stringValue,
@@ -66,7 +86,7 @@ open class LogEntry {
 // MARK: - Equatable
 extension LogEntry: Equatable { }
 public func == (left:LogEntry, right:LogEntry) -> Bool {
-    return left.createdAt == right.createdAt && left.order == right.order && left.level == right.level
+    return left.createdAt == right.createdAt && left.order == right.order
 }
 
 // MARK: - Comparable

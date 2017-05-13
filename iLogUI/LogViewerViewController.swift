@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Log viewer
 public class LogViewerViewController: UINavigationController {
     convenience public init() {
         self.init(rootViewController: TimelineViewController(style: .plain))

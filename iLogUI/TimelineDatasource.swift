@@ -9,67 +9,67 @@
 import UIKit
 import SwiftDate
 
-public struct Change {
-    public enum ChangeType { case add, update, sectionUpdate }
+struct Change {
+    enum ChangeType { case add, update, sectionUpdate }
     
-    public let indexPath:IndexPath
-    public let createSection:Bool
-    public let type:ChangeType
+    let indexPath:IndexPath
+    let createSection:Bool
+    let type:ChangeType
     
-    public init(indexPath: IndexPath, type: ChangeType = .add, createSection: Bool = false) {
+    init(indexPath: IndexPath, type: ChangeType = .add, createSection: Bool = false) {
         self.indexPath = indexPath
         self.createSection = createSection
         self.type = type
     }
 }
 
-public class TimelineDatasource:NSObject {
-    public static let cellIdentifier = "TimelineCell"
+class TimelineDatasource:NSObject {
+    static let cellIdentifier = "TimelineCell"
     
     fileprivate var groups: [LogEntryGroup] = []
-    public private(set) var offset:Int = 0
+    private(set) var offset:Int = 0
     
-    public var didSet: (([LogEntry]) -> Void)?
-    public var didInsert: (([Change]) -> Void)?
-    public var didAppend: (([LogEntry]) -> Void)?
+    var didSet: (([LogEntry]) -> Void)?
+    var didInsert: (([Change]) -> Void)?
+    var didAppend: (([LogEntry]) -> Void)?
     
-    public var configureCell: ((UITableViewCell, LogEntry, Bool) -> Void)?
-    public var configureHeader: ((UIView, LogEntryGroup) -> Void)?
+    var configureCell: ((UITableViewCell, LogEntry, Bool) -> Void)?
+    var configureHeader: ((UIView, LogEntryGroup) -> Void)?
     
-    public func prepend(entries:[LogEntry]) {
+    func prepend(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
         offset += entries.count
         let changes = entries.flatMap(self.prepend)
         didInsert?(changes)
     }
     
-    public func append(entries:[LogEntry]) {
+    func append(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
         offset += entries.count
         let _ = entries.flatMap(self.append)
         didAppend?(entries)
     }
     
-    public func set(entries:[LogEntry]) {
+    func set(entries:[LogEntry]) {
         groups = []
         offset = entries.count
         let _ = append(entries: entries)
         didSet?(entries)
     }
     
-    public func getEntry(for indexPath:IndexPath) -> LogEntry {
+    func getEntry(for indexPath:IndexPath) -> LogEntry {
         return groups[indexPath.section].entries[indexPath.row]
     }
     
-    public func getGroup(forSection section:Int) -> LogEntryGroup {
+    func getGroup(forSection section:Int) -> LogEntryGroup {
         return groups[section]
     }
     
-    public func count(forSection section:Int) -> Int {
+    func count(forSection section:Int) -> Int {
         return groups[section].count
     }
     
-    public var count: Int {
+    var count: Int {
         return groups.count
     }
     
@@ -182,15 +182,15 @@ public class TimelineDatasource:NSObject {
 }
 
 extension TimelineDatasource: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.count(forSection: section)
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimelineDatasource.cellIdentifier,
                                                  for: indexPath)
         let isLast = (indexPath.section == count - 1) &&

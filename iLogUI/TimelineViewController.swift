@@ -8,15 +8,11 @@
 
 import UIKit
 
-open class TimelineViewController: UITableViewController {
-    open var dataSource:TimelineDatasource!
+class TimelineViewController: UITableViewController {
+    var dataSource:TimelineDatasource!
     private var logManager:LogManager!
-    
-    open var logFile:String = {
-        return "logs.sqlite3"
-    }()
-    
-    override open func viewDidLoad() {
+        
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Log Viewer"
         
@@ -84,20 +80,20 @@ open class TimelineViewController: UITableViewController {
                                                                  action: #selector(clear))
     }
     
-    open override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let logs = logManager.all() else { return }
         self.dataSource.set(entries: logs)
     }
     
-    override open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = TimelineTableViewHeader.fromNib()
         view.isFirst = section == 0
         view.date = dataSource.getGroup(forSection: section).timestamp
         return view
     }
     
-    open override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let (section, row) = (indexPath.section, indexPath.row)
         let rowCount = dataSource.count(forSection: section)
         
@@ -108,7 +104,7 @@ open class TimelineViewController: UITableViewController {
         }
     }
     
-    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
         self.tableView.beginUpdates()
