@@ -4,7 +4,11 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.homepage     = 'https://github.com/leoneparise/iLog'
   s.authors      = { 'Leone Parise' => 'leone.parise@gmail.com' }
-  s.summary      = 'iOS Log Manager'
+  s.summary      = 'iLog log manager. Check you logs in your phone'
+  s.description  = <<-EOS
+  iLog is a drop in replacement to NSLog that allows to log using different strategies. 
+  iLog offers two drivers by default, a nice log viewer interface and external storage helpers.
+  EOS
   s.source       = { :git => 'https://github.com/leoneparise/iLog.git', :tag => s.version }
   s.platform     = :ios
   s.default_subspec = 'Core'
