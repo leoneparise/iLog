@@ -9,19 +9,18 @@ Did you like iLog? Give a ⭐️
 
 iLog is a simple log manager that uses a superfast SqlLite database to store your logs.
 
-- [x] Four types of log: `debug`, `info`, `warn`, `error`
-- [x] Log **file**, **function**, **line** 
-- [x] Really Fast!
-- [x] Nice log viewer interface
-- [x] Log drivers: Console and Sql drivers included. You can write your own driver if you need
-- [x] Highly customizable
-- [x] Well documented
-- [x] and more...
+- Four types of log: `debug`, `info`, `warn`, `error`
+- Logs **file**, **function** and **line** 
+- Really Fast!
+- Log drivers: Console and Sql drivers included. You can write your own driver if you need
+- Nice log viewer interface
+- Customizable
+- Well documented
+- and more...
 
 ## Requirements
 - Swift 3
-- iOS 8+ for iLog
-- iOS 9+ for iLogUI
+- iOS 9+
 
 ## Installation
 ### CocoaPods
