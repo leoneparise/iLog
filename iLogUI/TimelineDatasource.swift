@@ -23,7 +23,7 @@ struct Change {
     }
 }
 
-class TimelineDatasource:NSObject {
+public class TimelineDatasource:NSObject {
     static let cellIdentifier = "TimelineCell"
     
     fileprivate var groups: [LogEntryGroup] = []
@@ -36,41 +36,41 @@ class TimelineDatasource:NSObject {
     var configureCell: ((UITableViewCell, LogEntry, Bool) -> Void)?
     var configureHeader: ((UIView, LogEntryGroup) -> Void)?
     
-    func prepend(entries:[LogEntry]) {
+    public func prepend(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
         offset += entries.count
         let changes = entries.flatMap(self.prepend)
         didInsert?(changes)
     }
     
-    func append(entries:[LogEntry]) {
+    public func append(entries:[LogEntry]) {
         guard entries.count > 0 else { return }
         offset += entries.count
         let _ = entries.flatMap(self.append)
         didAppend?(entries)
     }
     
-    func set(entries:[LogEntry]) {
+    public func set(entries:[LogEntry]) {
         groups = []
         offset = entries.count
         let _ = append(entries: entries)
         didSet?(entries)
     }
     
-    func getEntry(for indexPath:IndexPath) -> LogEntry {
+    public func getEntry(for indexPath:IndexPath) -> LogEntry {
         return groups[indexPath.section].entries[indexPath.row]
+    }
+    
+    public func count(forSection section:Int) -> Int {
+        return groups[section].count
+    }
+    
+    public var count: Int {
+        return groups.count
     }
     
     func getGroup(forSection section:Int) -> LogEntryGroup {
         return groups[section]
-    }
-    
-    func count(forSection section:Int) -> Int {
-        return groups[section].count
-    }
-    
-    var count: Int {
-        return groups.count
     }
     
     // MARK: - Private
@@ -182,15 +182,15 @@ class TimelineDatasource:NSObject {
 }
 
 extension TimelineDatasource: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.count(forSection: section)
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return self.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimelineDatasource.cellIdentifier,
                                                  for: indexPath)
         let isLast = (indexPath.section == count - 1) &&

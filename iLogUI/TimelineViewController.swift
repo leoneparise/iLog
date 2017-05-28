@@ -8,11 +8,11 @@
 
 import UIKit
 
-class TimelineViewController: UITableViewController {
-    var dataSource:TimelineDatasource!
+open class TimelineViewController: UITableViewController {
+    public var dataSource:TimelineDatasource!
     private var logManager:LogManager!
         
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Log Viewer"
         
@@ -80,20 +80,20 @@ class TimelineViewController: UITableViewController {
                                                                  action: #selector(clear))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let logs = logManager.all() else { return }
         self.dataSource.set(entries: logs)
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = TimelineTableViewHeader.fromNib()
         view.isFirst = section == 0
         view.date = dataSource.getGroup(forSection: section).timestamp
         return view
     }
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let (section, row) = (indexPath.section, indexPath.row)
         let rowCount = dataSource.count(forSection: section)
         
@@ -104,7 +104,7 @@ class TimelineViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
         self.tableView.beginUpdates()
