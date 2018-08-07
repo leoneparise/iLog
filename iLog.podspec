@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |core|
     core.source_files = 'iLog/*.swift'
 
-    core.dependency 'SQLite.swift'
-    core.dependency 'SwiftDate'
+    core.dependency 'SQLite.swift', '0.11.3'
+    core.dependency 'SwiftDate', '~> 4.3.0'
     core.framework  = "Foundation"
     core.framework  = "UIKit"
   end

@@ -1,2 +1,2 @@
-github "stephencelis/SQLite.swift"
-github "malcommac/SwiftDate"
+github "stephencelis/SQLite.swift" "0.11.3"
+github "malcommac/SwiftDate" "4.3.0"
