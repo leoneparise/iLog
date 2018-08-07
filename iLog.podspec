@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'iLog'
-  s.version      = '1.2.5'
+  s.version      = '1.2.6'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.homepage     = 'https://github.com/leoneparise/iLog'
   s.authors      = { 'Leone Parise' => 'leone.parise@gmail.com' }
