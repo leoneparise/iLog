@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.default_subspec = 'Core'
   s.ios.deployment_target = '9.0'
-  s.swift_version = '3.0'
 
   s.subspec 'Core' do |core|
     core.source_files = 'iLog/*.swift'
