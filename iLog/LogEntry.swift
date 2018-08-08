@@ -19,11 +19,12 @@ fileprivate func next() -> Int64 {
 
 /// Log level
 public enum LogLevel: Int64 {
-    case debug = 0, info = 10, warn = 20, error = 30
+    case debug = 0, network = 5, info = 10, warn = 20, error = 30
     
     var stringValue:String {
         switch self {
         case .debug: return "debug"
+        case .network: return "network"
         case .info: return "info"
         case .warn: return "warn"
         case .error: return "error"
