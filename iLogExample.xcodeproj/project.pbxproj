@@ -27,7 +27,6 @@
 		B940C5B21EC60C94000AA020 /* LogDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B940C5AC1EC60C94000AA020 /* LogDriver.swift */; };
 		B940C5B31EC60C94000AA020 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B940C5AD1EC60C94000AA020 /* LogEntry.swift */; };
 		B940C5B41EC60C94000AA020 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B940C5AE1EC60C94000AA020 /* LogManager.swift */; };
-		B940C5B51EC60C94000AA020 /* Sequence+RemoveNils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B940C5AF1EC60C94000AA020 /* Sequence+RemoveNils.swift */; };
 		B940C5B61EC60C94000AA020 /* SqlLogDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B940C5B01EC60C94000AA020 /* SqlLogDriver.swift */; };
 		B940C5BA1EC60F00000AA020 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B81EC60F00000AA020 /* SQLite.framework */; };
 		B940C5BB1EC60F00000AA020 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B91EC60F00000AA020 /* SwiftDate.framework */; };
@@ -89,7 +88,6 @@
 		B940C5AC1EC60C94000AA020 /* LogDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDriver.swift; sourceTree = "<group>"; };
 		B940C5AD1EC60C94000AA020 /* LogEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		B940C5AE1EC60C94000AA020 /* LogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
-		B940C5AF1EC60C94000AA020 /* Sequence+RemoveNils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+RemoveNils.swift"; sourceTree = "<group>"; };
 		B940C5B01EC60C94000AA020 /* SqlLogDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqlLogDriver.swift; sourceTree = "<group>"; };
 		B940C5B81EC60F00000AA020 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		B940C5B91EC60F00000AA020 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 				B940C5AC1EC60C94000AA020 /* LogDriver.swift */,
 				B940C5AD1EC60C94000AA020 /* LogEntry.swift */,
 				B940C5AE1EC60C94000AA020 /* LogManager.swift */,
-				B940C5AF1EC60C94000AA020 /* Sequence+RemoveNils.swift */,
 				B940C5B01EC60C94000AA020 /* SqlLogDriver.swift */,
 			);
 			name = Core;
@@ -269,7 +266,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = com.leoneparise;
 				TargetAttributes = {
 					B940C5811EC60C66000AA020 = {
@@ -342,7 +339,6 @@
 				B940C5A41EC60C86000AA020 /* TimelineBulletView.swift in Sources */,
 				B940C5B31EC60C94000AA020 /* LogEntry.swift in Sources */,
 				B940C59D1EC60C86000AA020 /* LogEntryGroup.swift in Sources */,
-				B940C5B51EC60C94000AA020 /* Sequence+RemoveNils.swift in Sources */,
 				B940C5A21EC60C86000AA020 /* TimelineViewController.swift in Sources */,
 				B940C5B21EC60C94000AA020 /* LogDriver.swift in Sources */,
 				B940C5A81EC60C86000AA020 /* UIColor+Hex.swift in Sources */,
@@ -455,15 +451,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -506,15 +510,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

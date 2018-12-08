@@ -82,8 +82,10 @@ open class TimelineViewController: UITableViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let logs = logManager.all() else { return }
-        self.dataSource.set(entries: logs)
+        logManager.all { entriesOrNil in
+            guard let entries = entriesOrNil else { return }
+            self.dataSource.set(entries: entries)
+        }
     }
     
     override open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -98,9 +100,11 @@ open class TimelineViewController: UITableViewController {
         let rowCount = dataSource.count(forSection: section)
         
         if section >= max(0, (2 / 3) * dataSource.count)
-            && row >= max(0, (2 / 3) * rowCount),
-           let logs = logManager.all(offset: dataSource.offset) {
-            dataSource.append(entries: logs)
+            && row >= max(0, (2 / 3) * rowCount) {
+            logManager.all(offset: dataSource.offset) { [weak self] entriesOrNil in
+                guard let entries = entriesOrNil else { return }
+                self?.dataSource.append(entries: entries)
+            }
         }
     }
     
@@ -129,9 +133,10 @@ open class TimelineViewController: UITableViewController {
     
     @objc private func clear() {
         logManager.clear()
-        
-        guard let entries = logManager.all() else { return }
-        dataSource.set(entries: entries)
+        logManager.all{ [weak self] entriesOrNil in
+            guard let entries = entriesOrNil else { return }
+            self?.dataSource.set(entries: entries)
+        }
     }
     
     @objc private func didLog(notification:Notification) {

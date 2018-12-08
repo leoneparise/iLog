@@ -38,7 +38,7 @@ public protocol LogDriver:class {
      - parameter offset: offset to the history
      - returns: Array of `LogEntry` if history is supported or `nil` otherwise
      */
-    func all(level levelOrNil:LogLevel?, offset:Int) -> [LogEntry]?
+    func all(level levelOrNil:LogLevel?, offset:Int, completion: @escaping (([LogEntry]?) -> Void))
     
     /**
      Store logs in another service. The handler function must call the callback to tell this driver 

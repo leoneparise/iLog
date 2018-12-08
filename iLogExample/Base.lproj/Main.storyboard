@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,10 +22,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="u9h-aN-n8C">
-                                <rect key="frame" x="87" y="163.5" width="200" height="340"/>
+                                <rect key="frame" x="87.5" y="103.5" width="200" height="460"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nl-AC-Fsa">
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ahg-eD-IQn">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                                    </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nl-AC-Fsa">
+                                        <rect key="frame" x="0.0" y="60" width="200" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Z5O-vb-PyF"/>
                                         </constraints>
@@ -35,31 +38,38 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jm2-7v-Wn1">
-                                        <rect key="frame" x="0.0" y="60" width="200" height="40"/>
+                                        <rect key="frame" x="0.0" y="120" width="200" height="40"/>
                                         <state key="normal" title="INFO"/>
                                         <connections>
                                             <action selector="infoAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="O1S-JS-BsN"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u18-ZX-jgD">
-                                        <rect key="frame" x="0.0" y="120" width="200" height="40"/>
+                                        <rect key="frame" x="0.0" y="180" width="200" height="40"/>
                                         <state key="normal" title="WARN"/>
                                         <connections>
                                             <action selector="warnAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="caT-QV-9e4"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AM-6x-RI5">
-                                        <rect key="frame" x="0.0" y="180" width="200" height="40"/>
+                                        <rect key="frame" x="0.0" y="240" width="200" height="40"/>
                                         <state key="normal" title="ERROR"/>
                                         <connections>
                                             <action selector="errorAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="067-qP-a5T"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dki-cA-yOE">
+                                        <rect key="frame" x="0.0" y="300" width="200" height="40"/>
+                                        <state key="normal" title="STRESS"/>
+                                        <connections>
+                                            <action selector="stressAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="wUY-fn-rik"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acg-jT-zaY">
-                                        <rect key="frame" x="0.0" y="240" width="200" height="40"/>
+                                        <rect key="frame" x="0.0" y="360" width="200" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log every 2 secs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Tl-HO-E6c">
-                                                <rect key="frame" x="0.0" y="10.5" width="129" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="10" width="141" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -76,14 +86,12 @@
                                             <constraint firstItem="6Tl-HO-E6c" firstAttribute="leading" secondItem="acg-jT-zaY" secondAttribute="leading" id="ADv-zh-kPA"/>
                                             <constraint firstItem="fK2-gq-G6o" firstAttribute="centerY" secondItem="acg-jT-zaY" secondAttribute="centerY" id="Xfz-3m-2Id"/>
                                             <constraint firstItem="6Tl-HO-E6c" firstAttribute="centerY" secondItem="acg-jT-zaY" secondAttribute="centerY" id="geU-ZJ-V66"/>
+                                            <constraint firstItem="fK2-gq-G6o" firstAttribute="leading" secondItem="6Tl-HO-E6c" secondAttribute="trailing" constant="10" id="oKa-B5-Pqz"/>
                                             <constraint firstAttribute="trailing" secondItem="fK2-gq-G6o" secondAttribute="trailing" id="oN1-tp-JE5"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsM-Bz-yaS">
-                                        <rect key="frame" x="0.0" y="300" width="200" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="spx-pI-6KU"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="420" width="200" height="40"/>
                                         <state key="normal" title="View Log"/>
                                         <connections>
                                             <action selector="viewLogAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xoo-t1-2vd"/>

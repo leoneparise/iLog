@@ -54,7 +54,7 @@ public class LogManager {
     /// Share instance. Used by log global function
     public static var shared: LogManager = {
         let drivers:[LogDriver?] = [SqlLogDriver(), ConsoleLogDriver()]
-        return LogManager(drivers: drivers.removeNils())
+        return LogManager(drivers: drivers.flatMap{ $0 })
     }()
     
     /// Default initializer
@@ -72,8 +72,8 @@ public class LogManager {
     }
     
     /// Get log history from the main Driver
-    public func all(level levelOrNil: LogLevel? = nil, offset: Int = 0) -> [LogEntry]? {
-        return self.mainDriver?.all(level: levelOrNil, offset: offset)
+    public func all(level levelOrNil: LogLevel? = nil, offset: Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {
+        self.mainDriver?.all(level: levelOrNil, offset: offset, completion: completion)
     }
     
     /// Log

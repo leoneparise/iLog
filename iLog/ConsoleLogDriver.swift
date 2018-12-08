@@ -31,14 +31,19 @@ public class ConsoleLogDriver: LogDriver {
     }
     
     public func log(entry: LogEntry) {
-        guard entry.level.rawValue >= level.rawValue else { return }
-        
-        print(logString(entry))
-        didLog?(entry)
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let wself = self, entry.level.rawValue >= wself.level.rawValue else { return }
+            
+            print(wself.logString(entry))
+            
+            DispatchQueue.main.async {
+                wself.didLog?(entry)
+            }
+        }
     }
     
-    public func all(level levelOrNil: LogLevel?, offset: Int) -> [LogEntry]? {
-        return nil
+    public func all(level levelOrNil: LogLevel?, offset: Int, completion: (([LogEntry]?) -> Void)) {
+        return completion(nil)
     }
     
     /// Not supported

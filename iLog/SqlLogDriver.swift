@@ -71,32 +71,49 @@ public class SqlLogDriver: LogDriver {
     
     // MARK: - Public Functions
     public func log(entry:LogEntry) {
-        guard entry.level.rawValue >= level.rawValue else { return }
-        
-        do {
-            try db.run(tbl_logs.insert(
-                            col_level <- entry.level.rawValue,
-                            col_message <- entry.message,
-                            col_file <- entry.file,
-                            col_line <- Int64(entry.line),
-                            col_function <- entry.function,
-                            col_createdAt <- Int64(entry.createdAt.timeIntervalSince1970),
-                            col_order <- entry.order,
-                            col_stored <- entry.stored))
-        } catch {
-            print("iLog >> Can't insert entry")
-            return
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let wself = self, entry.level.rawValue >= wself.level.rawValue else { return }
+            
+            do {
+                try wself.db.run(wself.tbl_logs.insert(
+                    wself.col_level <- entry.level.rawValue,
+                    wself.col_message <- entry.message,
+                    wself.col_file <- entry.file,
+                    wself.col_line <- Int64(entry.line),
+                    wself.col_function <- entry.function,
+                    wself.col_createdAt <- Int64(entry.createdAt.timeIntervalSince1970),
+                    wself.col_order <- entry.order,
+                    wself.col_stored <- entry.stored))
+            } catch {
+                print("iLog >> Can't insert entry")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                wself.didLog?(entry)
+            }
         }
-        
-        didLog?(entry)
     }
     
-    public func all(level levelOrNil:LogLevel? = nil, offset:Int = 0) -> [LogEntry]? {
-        let query = tbl_logs.filter(col_level >= (levelOrNil?.rawValue ?? 0))
-                            .order(col_createdAt.desc, col_order.desc)
-                            .limit(50, offset: offset)
-        
-        return self.getEntries(query: query)
+    public func all(level levelOrNil:LogLevel? = nil, offset:Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {
+        DispatchQueue.global(qos: .background).async {[weak self] in
+            guard let wself = self else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
+            }
+            
+            let query = wself.tbl_logs.filter(wself.col_level >= (levelOrNil?.rawValue ?? 0))
+                .order(wself.col_createdAt.desc, wself.col_order.desc)
+                .limit(50, offset: offset)
+            
+            let entries = wself.getEntries(query: query);
+            
+            DispatchQueue.main.async {
+                completion(entries)
+            }
+        }
     }
     
     public func store(_ handler: ([LogEntry], (Bool) -> Void) -> Void) {
@@ -106,18 +123,24 @@ public class SqlLogDriver: LogDriver {
         let entries = getEntries(query: query)
         handler(entries) { success in
             if success {
-                for entry in entries {
-                    self.update(entry: entry)
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    for entry in entries {
+                        self?.update(entry: entry)
+                    }
                 }
             }
         }
     }
     
     public func clear() {
-        do {
-            let _ = try db.run(tbl_logs.delete())                
-        } catch {
-            print("iLog >> Can't clear log")
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let wself = self else { return }
+            
+            do {
+                let _ = try wself.db.run(wself.tbl_logs.delete())
+            } catch {
+                print("iLog >> Can't clear log")
+            }
         }
     }
 }

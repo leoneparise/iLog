@@ -12,6 +12,12 @@ import iLog
 class ViewController: UIViewController {
     private var timer:Timer?
     
+    @IBAction func stressAction() {
+        for _ in 0..<300 {
+            log(.debug, "Some stress test. Check the animation to see if it freeze")
+        }
+    }
+    
     @IBAction func debugAction() {
         log(.debug, "Some debug message. You can filter your log level with level property")
     }
