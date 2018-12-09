@@ -72,8 +72,8 @@ public class LogManager {
     }
     
     /// Get log history from the main Driver
-    public func all(level levelOrNil: LogLevel? = nil, offset: Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {
-        self.mainDriver?.all(level: levelOrNil, offset: offset, completion: completion)
+    public func filter(level levelOrNil:LogLevel? = nil, text textOrNil:String? = nil, offset:Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {
+        self.mainDriver?.filter(level: levelOrNil, text: textOrNil, offset: offset, completion: completion)
     }
     
     /// Log

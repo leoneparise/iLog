@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75E703DB21BC540100882603 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703DA21BC540100882603 /* FilterButton.swift */; };
 		B940C5861EC60C66000AA020 /* iLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B940C5841EC60C66000AA020 /* iLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B940C5891EC60C67000AA020 /* iLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; };
 		B940C58A1EC60C67000AA020 /* iLog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,6 +69,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		75E703DA21BC540100882603 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		B940C5821EC60C66000AA020 /* iLog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iLog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B940C5841EC60C66000AA020 /* iLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iLog.h; sourceTree = "<group>"; };
 		B940C5851EC60C66000AA020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				B940C5941EC60C86000AA020 /* TimelineTableViewCell.swift */,
 				B940C5951EC60C86000AA020 /* TimelineViewController.swift */,
 				B940C5961EC60C86000AA020 /* CloseButton.swift */,
+				75E703DA21BC540100882603 /* FilterButton.swift */,
 				B940C5971EC60C86000AA020 /* TimelineBulletView.swift */,
 				B940C5981EC60C86000AA020 /* TimelineTableViewCell.xib */,
 				B940C5991EC60C86000AA020 /* TimelineTableViewHeader.swift */,
@@ -334,6 +337,7 @@
 				B940C5A11EC60C86000AA020 /* TimelineTableViewCell.swift in Sources */,
 				B940C59F1EC60C86000AA020 /* LogViewerViewController.swift in Sources */,
 				B940C5B41EC60C94000AA020 /* LogManager.swift in Sources */,
+				75E703DB21BC540100882603 /* FilterButton.swift in Sources */,
 				B940C5A61EC60C86000AA020 /* TimelineTableViewHeader.swift in Sources */,
 				B940C5A31EC60C86000AA020 /* CloseButton.swift in Sources */,
 				B940C5A41EC60C86000AA020 /* TimelineBulletView.swift in Sources */,
@@ -563,6 +567,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = iLogExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leoneparise.iLogExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -582,6 +587,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = iLogExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leoneparise.iLogExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

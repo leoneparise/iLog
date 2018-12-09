@@ -10,11 +10,20 @@ import UIKit
 
 open class TimelineViewController: UITableViewController {
     public var dataSource:TimelineDatasource!
+    private var searchController:UISearchController!
     private var logManager:LogManager!
-        
+    
+    fileprivate var logLevel = LogLevel.debug {
+        didSet { refresh() }
+    }
+    
+    fileprivate var searchText:String? = nil {
+        didSet { refresh() }
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Log Viewer"
+        title = "Log Viewer"
         
         // Configure log manager
         logManager = LogManager.shared
@@ -63,6 +72,8 @@ open class TimelineViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 50
         tableView.tableFooterView = UIView()
+        tableView.keyboardDismissMode = .onDrag
+        
         // Register cell
         let bundle = Bundle(for: TimelineViewController.self)
         let cellNib = UINib(nibName: "TimelineTableViewCell", bundle: bundle)
@@ -70,21 +81,35 @@ open class TimelineViewController: UITableViewController {
         
         // Configure navigation bar
         let closeButton = CloseButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        closeButton.padding = 5
+        closeButton.padding = 6
         closeButton.lineWidth = 2
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash,
-                                                                 target: self,
-                                                                 action: #selector(clear))
+        let filterButton = FilterButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        filterButton.padding = 5
+        filterButton.lineWidth = 2
+        filterButton.spacing = 5
+        filterButton.addTarget(self, action: #selector(showActions), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
+        
+        // Configure the search controller
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search logs"
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        navigationItem.titleView = searchController.searchBar
+        
+        // Sets this view controller as presenting view controller for the search interface
+        definesPresentationContext = true
+        
     }
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        logManager.all { entriesOrNil in
-            guard let entries = entriesOrNil else { return }
-            self.dataSource.set(entries: entries)
+        logManager.filter(level: logLevel, text: searchText) { entries in
+            self.dataSource.set(entries: entries ?? [])
         }
     }
     
@@ -101,9 +126,8 @@ open class TimelineViewController: UITableViewController {
         
         if section >= max(0, (2 / 3) * dataSource.count)
             && row >= max(0, (2 / 3) * rowCount) {
-            logManager.all(offset: dataSource.offset) { [weak self] entriesOrNil in
-                guard let entries = entriesOrNil else { return }
-                self?.dataSource.append(entries: entries)
+            logManager.filter(level: logLevel, text: searchText, offset: dataSource.offset) { [weak self] entries in
+                self?.dataSource.append(entries: entries ?? [])
             }
         }
     }
@@ -133,15 +157,14 @@ open class TimelineViewController: UITableViewController {
     
     @objc private func clear() {
         logManager.clear()
-        logManager.all{ [weak self] entriesOrNil in
-            guard let entries = entriesOrNil else { return }
-            self?.dataSource.set(entries: entries)
-        }
+        refresh()
     }
     
     @objc private func didLog(notification:Notification) {
         guard let entry = notification.object as? LogEntry else { return }
-        self.dataSource.prepend(entries: [entry])
+        if entry.level >= logLevel {
+            self.dataSource.prepend(entries: [entry])
+        }
     }
     
     private func apply(changes:[Change], withAddAnimation addAnimation: UITableViewRowAnimation = .top) {
@@ -160,7 +183,51 @@ open class TimelineViewController: UITableViewController {
         self.tableView.endUpdates()
     }
     
+    fileprivate func refresh() {
+        logManager.filter(level: logLevel, text: searchText) { [weak self] entries in
+            self?.dataSource.set(entries: entries ?? [])
+        }
+    }
+    
+    @objc private func showActions() {
+        func createAction(level:LogLevel) -> UIAlertAction {
+            let isSelected = logLevel == level
+            let title = isSelected ? "- \(level.stringValue) -" : level.stringValue
+            let action = UIAlertAction(title: title, style: .default) { [unowned self] _ in
+                self.logLevel = level
+            }
+            action.isEnabled = !isSelected
+            
+            return action
+        }
+        
+        let alert = UIAlertController(title: nil,  message: "Log level", preferredStyle: .actionSheet)
+        alert.addAction(createAction(level: .debug))
+        alert.addAction(createAction(level: .info))
+        alert.addAction(createAction(level: .warn))
+        alert.addAction(createAction(level: .error))
+        
+        alert.addAction(UIAlertAction(title: "Clear logs", style: .destructive, handler: { (_) in
+            self.clear()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+}
+
+extension TimelineViewController: UISearchResultsUpdating {
+    public func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text, !text.isEmpty else {
+            searchText = nil
+            return
+        }
+        
+        searchText = text
     }
 }

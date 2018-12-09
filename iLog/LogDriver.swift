@@ -32,13 +32,14 @@ public protocol LogDriver:class {
     func log(entry:LogEntry)
     
     /**
-     Get all logs stored by this driver. **Some drivers doesn't offer log history** (eg: ConsoleLogDriver) returning `nil`.
+     Filter logs stored by this driver. **Some drivers doesn't offer log history** (eg: ConsoleLogDriver) returning `nil`.
      
      - parameter level: log level to filter
      - parameter offset: offset to the history
+     - parameter text: text to filter
      - returns: Array of `LogEntry` if history is supported or `nil` otherwise
      */
-    func all(level levelOrNil:LogLevel?, offset:Int, completion: @escaping (([LogEntry]?) -> Void))
+    func filter(level:LogLevel?, text:String?, offset:Int, completion: @escaping (([LogEntry]?) -> Void))
     
     /**
      Store logs in another service. The handler function must call the callback to tell this driver 

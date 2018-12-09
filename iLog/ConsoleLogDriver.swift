@@ -10,7 +10,7 @@ import Foundation
 
 fileprivate func defaultDateFormatter() -> DateFormatter {
     let df = DateFormatter()
-    df.dateFormat = "yyyy/MM/dd HH:mm:ss.SSS"
+    df.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     return df
 }
 
@@ -42,7 +42,7 @@ public class ConsoleLogDriver: LogDriver {
         }
     }
     
-    public func all(level levelOrNil: LogLevel?, offset: Int, completion: (([LogEntry]?) -> Void)) {
+    public func filter(level levelOrNil:LogLevel? = nil, text textOrNil:String? = nil, offset:Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {
         return completion(nil)
     }
     

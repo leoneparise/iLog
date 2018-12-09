@@ -18,6 +18,7 @@ public class SqlLogDriver: LogDriver {
     
     // MARK: - Data Definition
     fileprivate let tbl_logs = Table("logs")
+    fileprivate let col_id = Expression<Int64>("id")
     fileprivate let col_level = Expression<Int64>("level")
     fileprivate let col_message = Expression<String>("message")
     fileprivate let col_file = Expression<String>("file")
@@ -27,13 +28,13 @@ public class SqlLogDriver: LogDriver {
     fileprivate let col_stored = Expression<Bool>("stored")
     fileprivate let col_order = Expression<Int64>("order_seq")
     
+    fileprivate let vtbl_logs = VirtualTable("vlogs")
+    fileprivate let col_docid = Expression<Int64>("docid")
     /**
      Create a SqlLogDriver instance.
      
      - parameter level: minimum log level
-     
      - parameter logFile: log file name. All logs are atored in user's document directory
-     
      - parameter inMemory: use in memory database. **In memory databases doesn't have a shared state**
     */
     public init?(level:LogLevel = .debug, logFile:String = "logs.sqlite3", inMemory:Bool = false) {
@@ -67,6 +68,16 @@ public class SqlLogDriver: LogDriver {
         })
         
         try db.run(tbl_logs.createIndex([col_level, col_createdAt, col_stored], ifNotExists: true))
+        
+        let config = FTS4Config()
+            .column(col_message)
+            .column(col_file)
+            .column(col_function)
+            .column(col_createdAt, [.unindexed])
+            .column(col_order, [.unindexed])
+            .tokenizer(Tokenizer.Unicode61())
+        
+        try db.run(vtbl_logs.create(.FTS4(config), ifNotExists: true))
     }
     
     // MARK: - Public Functions
@@ -75,17 +86,27 @@ public class SqlLogDriver: LogDriver {
             guard let wself = self, entry.level.rawValue >= wself.level.rawValue else { return }
             
             do {
-                try wself.db.run(wself.tbl_logs.insert(
-                    wself.col_level <- entry.level.rawValue,
-                    wself.col_message <- entry.message,
-                    wself.col_file <- entry.file,
-                    wself.col_line <- Int64(entry.line),
-                    wself.col_function <- entry.function,
-                    wself.col_createdAt <- Int64(entry.createdAt.timeIntervalSince1970),
-                    wself.col_order <- entry.order,
-                    wself.col_stored <- entry.stored))
-            } catch {
-                print("iLog >> Can't insert entry")
+                try wself.db.transaction {
+                    try wself.db.run(wself.tbl_logs.insert(
+                        wself.col_level <- entry.level.rawValue,
+                        wself.col_message <- entry.message,
+                        wself.col_file <- entry.file,
+                        wself.col_line <- Int64(entry.line),
+                        wself.col_function <- entry.function,
+                        wself.col_createdAt <- Int64(entry.createdAt.timeIntervalSince1970),
+                        wself.col_order <- entry.order,
+                        wself.col_stored <- entry.stored))
+                    
+                    try wself.db.run(wself.vtbl_logs.insert(
+                        wself.col_function <- entry.function,
+                        wself.col_file <- entry.file,
+                        wself.col_message <- entry.message,
+                        wself.col_createdAt <- Int64(entry.createdAt.timeIntervalSince1970),
+                        wself.col_order <- entry.order
+                    ))
+                }
+            } catch let e {
+                print("iLog >> Can't insert entry \(e)")
                 return
             }
             
@@ -95,7 +116,7 @@ public class SqlLogDriver: LogDriver {
         }
     }
     
-    public func all(level levelOrNil:LogLevel? = nil, offset:Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {
+    public func filter(level levelOrNil:LogLevel? = nil, text textOrNil:String? = nil, offset:Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {        
         DispatchQueue.global(qos: .background).async {[weak self] in
             guard let wself = self else {
                 DispatchQueue.main.async {
@@ -104,11 +125,19 @@ public class SqlLogDriver: LogDriver {
                 return
             }
             
-            let query = wself.tbl_logs.filter(wself.col_level >= (levelOrNil?.rawValue ?? 0))
-                .order(wself.col_createdAt.desc, wself.col_order.desc)
-                .limit(50, offset: offset)
+            let query:Table            
+            if let text = textOrNil, !text.isEmpty {
+                query = wself.fullTextQuery(level: levelOrNil ?? .debug,
+                                            text: text,
+                                            limit: 50,
+                                            offset: offset)
+            } else {
+                query = wself.simpleQuery(level: levelOrNil ?? .debug,
+                                          limit: 50,
+                                          offset: offset)
+            }
             
-            let entries = wself.getEntries(query: query);
+            let entries = wself.getEntries(query: query)
             
             DispatchQueue.main.async {
                 completion(entries)
@@ -137,7 +166,10 @@ public class SqlLogDriver: LogDriver {
             guard let wself = self else { return }
             
             do {
-                let _ = try wself.db.run(wself.tbl_logs.delete())
+                try wself.db.transaction {
+                    try wself.db.run(wself.tbl_logs.delete())
+                    try wself.db.run(wself.vtbl_logs.delete())
+                }
             } catch {
                 print("iLog >> Can't clear log")
             }
@@ -146,8 +178,8 @@ public class SqlLogDriver: LogDriver {
 }
 
 // MARK
-extension SqlLogDriver {
-    fileprivate func getEntries(query:Table) -> [LogEntry] {
+fileprivate extension SqlLogDriver {
+    func getEntries(query:Table) -> [LogEntry] {
         var entries:[LogEntry] = []
         
         do {
@@ -172,7 +204,7 @@ extension SqlLogDriver {
         return entries
     }
     
-    fileprivate func update(entry:LogEntry) {
+    func update(entry:LogEntry) {
         let log = tbl_logs.filter(col_createdAt == Int64(entry.createdAt.timeIntervalSince1970)
                                && col_order == entry.order)
         do {
@@ -182,5 +214,23 @@ extension SqlLogDriver {
         } catch {
             print("iLog >> Can't update log")
         }
+    }
+    
+    func fullTextQuery(level: LogLevel, text: String, limit:Int, offset: Int) -> Table {
+        let query = tbl_logs.select(tbl_logs[*]).join(vtbl_logs, on:
+            vtbl_logs[col_createdAt] == tbl_logs[col_createdAt] &&
+            vtbl_logs[col_order] == tbl_logs[col_order]
+        )
+        .filter(vtbl_logs.match(text) && col_level >= level.rawValue)
+        .order(tbl_logs[col_createdAt].desc, tbl_logs[col_order].desc)
+        .limit(limit, offset: offset)
+        
+        return query
+    }
+    
+    func simpleQuery(level: LogLevel, limit:Int, offset: Int) -> Table {
+        return tbl_logs.filter(col_level >= level.rawValue)
+            .order(col_createdAt.desc, col_order.desc)
+            .limit(limit, offset: offset)
     }
 }

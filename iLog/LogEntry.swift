@@ -113,3 +113,23 @@ public func >= (left:LogEntry, right:LogEntry) -> Bool {
            (left.createdAt == right.createdAt && left.order >= right.order)
     
 }
+
+extension LogLevel: Comparable { }
+public func < (left:LogLevel, right:LogLevel) -> Bool {
+    return left.rawValue < right.rawValue
+    
+}
+
+public func <= (left:LogLevel, right:LogLevel) -> Bool {
+    return left.rawValue <= right.rawValue
+}
+
+public func > (left:LogLevel, right:LogLevel) -> Bool {
+    return left.rawValue > right.rawValue
+    
+}
+
+public func >= (left:LogLevel, right:LogLevel) -> Bool {
+    return left.rawValue >= right.rawValue
+    
+}

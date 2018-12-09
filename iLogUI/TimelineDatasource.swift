@@ -53,7 +53,15 @@ public class TimelineDatasource:NSObject {
     public func set(entries:[LogEntry]) {
         groups = []
         offset = entries.count
-        let _ = append(entries: entries)
+                
+        for entry in entries {
+            if let index = groups.index(of: LogEntryGroup(entry: entry)) {
+                groups[index].append(entry)
+            } else {
+                groups.append(LogEntryGroup(entry: entry))
+            }
+        }
+        
         didSet?(entries)
     }
     
