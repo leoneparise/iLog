@@ -217,11 +217,16 @@ fileprivate extension SqlLogDriver {
     }
     
     func fullTextQuery(level: LogLevel, text: String, limit:Int, offset: Int) -> Table {
+        let words = text.trimmingCharacters(in: .whitespaces)
+            .replacingPattern(of: "\\s+", with: " ")
+            .split(separator: " ")
+            .map{ "\($0)*" }.joined(separator: " ")
+        
         let query = tbl_logs.select(tbl_logs[*]).join(vtbl_logs, on:
             vtbl_logs[col_createdAt] == tbl_logs[col_createdAt] &&
             vtbl_logs[col_order] == tbl_logs[col_order]
         )
-        .filter(vtbl_logs.match(text) && col_level >= level.rawValue)
+        .filter(vtbl_logs.match(words) && col_level >= level.rawValue)
         .order(tbl_logs[col_createdAt].desc, tbl_logs[col_order].desc)
         .limit(limit, offset: offset)
         
