@@ -97,8 +97,11 @@ open class TimelineViewController: UITableViewController {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Search logs"
+        searchController.searchBar.autocorrectionType = .no
+        searchController.searchBar.autocapitalizationType = .none
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
+        
         navigationItem.titleView = searchController.searchBar
         
         // Sets this view controller as presenting view controller for the search interface

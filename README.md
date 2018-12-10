@@ -22,6 +22,9 @@ iLog is a simple log manager that uses a superfast SqlLite database to store you
 - Swift 3
 - iOS 9+
 
+## What's new in version 1.3.0
+
+
 ## Installation
 ### CocoaPods
 
@@ -192,6 +195,3 @@ func applicationDidEnterBackground(_ application: UIApplication) {
   }
 }
 ```
-
-# TODO
-- [x] Filter and search in Log Viewer View Controller.
