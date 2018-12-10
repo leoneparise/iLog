@@ -137,15 +137,12 @@ open class TimelineViewController: UITableViewController {
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        
-        self.tableView.beginUpdates()
-        
         guard
             let cell = tableView.cellForRow(at: indexPath) as? TimelineTableViewCellType
-        else { return }
+            else { return }
         
-        cell.expanded = !cell.expanded
-        
+        self.tableView.beginUpdates()
+        cell.expanded = !cell.expanded        
         self.tableView.endUpdates()
     }
     
@@ -165,7 +162,9 @@ open class TimelineViewController: UITableViewController {
     
     @objc private func didLog(notification:Notification) {
         guard let entry = notification.object as? LogEntry else { return }
-        if entry.level >= logLevel {
+        
+        // We shouldn't add new logs if there is a search happening
+        if entry.level >= logLevel && (searchText?.isEmpty ?? true) && !searchController.isActive {
             self.dataSource.prepend(entries: [entry])
         }
     }
@@ -226,11 +225,13 @@ open class TimelineViewController: UITableViewController {
 
 extension TimelineViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text, !text.isEmpty else {
-            searchText = nil
-            return
+        performTrottled(label: "search", delay: 0.5) { [weak self] in
+            guard let text = searchController.searchBar.text, !text.isEmpty else {
+                self?.searchText = nil
+                return
+            }
+            
+            self?.searchText = text
         }
-        
-        searchText = text
     }
 }

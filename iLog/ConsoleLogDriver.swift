@@ -31,14 +31,12 @@ public class ConsoleLogDriver: LogDriver {
     }
     
     public func log(entry: LogEntry) {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let wself = self, entry.level.rawValue >= wself.level.rawValue else { return }
-            
-            print(wself.logString(entry))
-            
-            DispatchQueue.main.async {
-                wself.didLog?(entry)
-            }
+        guard entry.level.rawValue >= level.rawValue else { return }
+        
+        print(logString(entry))
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.didLog?(entry)
         }
     }
     

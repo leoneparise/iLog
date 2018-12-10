@@ -30,6 +30,8 @@ public extension Notification.Name {
 /// Manager
 public class LogManager {
     private var storeBackgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    private let loggingQueue = DispatchQueue(label: "loggingQueue", qos: .background)
+    private let queryQueue = DispatchQueue(label: "queryQueue", qos: .background)
     
     // MARK: Public
     
@@ -73,7 +75,9 @@ public class LogManager {
     
     /// Get log history from the main Driver
     public func filter(level levelOrNil:LogLevel? = nil, text textOrNil:String? = nil, offset:Int = 0, completion: @escaping (([LogEntry]?) -> Void)) {
-        self.mainDriver?.filter(level: levelOrNil, text: textOrNil, offset: offset, completion: completion)
+        queryQueue.async { [weak self] in
+            self?.mainDriver?.filter(level: levelOrNil, text: textOrNil, offset: offset, completion: completion)
+        }
     }
     
     /// Log
@@ -83,8 +87,11 @@ public class LogManager {
         
         let entry = LogEntry(createdAt: nil, order: nil, stored: nil, level: level, file: fileName, line: line, function: function, message: message)
         
-        for driver in drivers {
-            driver.log(entry: entry)
+        loggingQueue.async { [weak self] in
+            guard let wself = self else { return }            
+            for driver in wself.drivers {
+                driver.log(entry: entry)
+            }
         }
     }
     
@@ -117,15 +124,18 @@ public class LogManager {
     
     /// Clear all drivers
     public func clear() {
-        for driver in drivers {
-            driver.clear()
+        loggingQueue.async { [weak self] in
+            guard let wself = self else { return }
+            for driver in wself.drivers {
+                driver.clear()
+            }
         }
     }
     
     // MARK: Private
     private func didSetDrivers() {
         if let driver = self.mainDriver {
-            driver.didLog = {[weak self] entry in
+            driver.didLog = { [weak self] entry in
                 self?.postDidLogNotification(entry: entry)
             }
         }

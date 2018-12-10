@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		75E703DB21BC540100882603 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703DA21BC540100882603 /* FilterButton.swift */; };
 		75E703DE21BDC70C00882603 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703DD21BDC70C00882603 /* String+Extras.swift */; };
+		75E703E021BE02AF00882603 /* NSObject+Trottled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703DF21BE02AF00882603 /* NSObject+Trottled.swift */; };
 		B940C5861EC60C66000AA020 /* iLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B940C5841EC60C66000AA020 /* iLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B940C5891EC60C67000AA020 /* iLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; };
 		B940C58A1EC60C67000AA020 /* iLog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -72,6 +73,7 @@
 /* Begin PBXFileReference section */
 		75E703DA21BC540100882603 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		75E703DD21BDC70C00882603 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
+		75E703DF21BE02AF00882603 /* NSObject+Trottled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Trottled.swift"; sourceTree = "<group>"; };
 		B940C5821EC60C66000AA020 /* iLog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iLog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B940C5841EC60C66000AA020 /* iLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iLog.h; sourceTree = "<group>"; };
 		B940C5851EC60C66000AA020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -145,11 +147,11 @@
 				B940C5911EC60C86000AA020 /* LogLevelLabel.swift */,
 				B940C5921EC60C86000AA020 /* LogViewerViewController.swift */,
 				B940C5931EC60C86000AA020 /* TimelineDatasource.swift */,
-				B940C5941EC60C86000AA020 /* TimelineTableViewCell.swift */,
 				B940C5951EC60C86000AA020 /* TimelineViewController.swift */,
 				B940C5961EC60C86000AA020 /* CloseButton.swift */,
 				75E703DA21BC540100882603 /* FilterButton.swift */,
 				B940C5971EC60C86000AA020 /* TimelineBulletView.swift */,
+				B940C5941EC60C86000AA020 /* TimelineTableViewCell.swift */,
 				B940C5981EC60C86000AA020 /* TimelineTableViewCell.xib */,
 				B940C5991EC60C86000AA020 /* TimelineTableViewHeader.swift */,
 				B940C59A1EC60C86000AA020 /* TimelineTableViewHeader.xib */,
@@ -169,6 +171,7 @@
 				B940C5AE1EC60C94000AA020 /* LogManager.swift */,
 				B940C5B01EC60C94000AA020 /* SqlLogDriver.swift */,
 				75E703DD21BDC70C00882603 /* String+Extras.swift */,
+				75E703DF21BE02AF00882603 /* NSObject+Trottled.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				B940C5B11EC60C94000AA020 /* ConsoleLogDriver.swift in Sources */,
 				B940C5A91EC60C86000AA020 /* UIView+Draw.swift in Sources */,
 				B940C5A11EC60C86000AA020 /* TimelineTableViewCell.swift in Sources */,
+				75E703E021BE02AF00882603 /* NSObject+Trottled.swift in Sources */,
 				B940C59F1EC60C86000AA020 /* LogViewerViewController.swift in Sources */,
 				75E703DE21BDC70C00882603 /* String+Extras.swift in Sources */,
 				B940C5B41EC60C94000AA020 /* LogManager.swift in Sources */,
