@@ -29,7 +29,7 @@ public extension Notification.Name {
 
 /// Manager
 public class LogManager {
-    private var storeBackgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    private var storeBackgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     private let loggingQueue = DispatchQueue(label: "loggingQueue", qos: .background)
     private let queryQueue = DispatchQueue(label: "queryQueue", qos: .background)
     
@@ -56,7 +56,7 @@ public class LogManager {
     /// Share instance. Used by log global function
     public static var shared: LogManager = {
         let drivers:[LogDriver?] = [SqlLogDriver(), ConsoleLogDriver()]
-        return LogManager(drivers: drivers.flatMap{ $0 })
+        return LogManager(drivers: drivers.compactMap{ $0 })
     }()
     
     /// Default initializer
@@ -107,16 +107,19 @@ public class LogManager {
      */
     public func storeLogsInBackground(application: UIApplication, handler: @escaping StoreHandler) {
         // If there is a background task running, doesn't run again
-        if storeBackgroundTask != UIBackgroundTaskInvalid { return }
-        storeBackgroundTask = application.beginBackgroundTask(withName: "iLogStoreLogs") {
-            application.endBackgroundTask(self.storeBackgroundTask)
+        if storeBackgroundTask != UIBackgroundTaskIdentifier.invalid { return }
+        
+        storeBackgroundTask = application.beginBackgroundTask { [unowned self] in
+            application.endBackgroundTask(self.storeBackgroundTask) // End background task after 180 seconds
         }
         
-        mainDriver?.store{ [unowned self] (entries, callback) in
+        mainDriver?.store{ [unowned self] (entries, updateEntries) in
             handler(entries) { success in
-                callback(success)
-                if self.storeBackgroundTask != UIBackgroundTaskInvalid {
-                    application.endBackgroundTask(self.storeBackgroundTask)
+                
+                updateEntries(success)
+                
+                if self.storeBackgroundTask != UIBackgroundTaskIdentifier.invalid {
+                    application.endBackgroundTask(self.storeBackgroundTask) // End background task after save
                 }
             }
         }

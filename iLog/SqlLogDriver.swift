@@ -66,7 +66,9 @@ public class SqlLogDriver: LogDriver {
             t.primaryKey(col_createdAt, col_order)
         })
         
-        try db.run(tbl_logs.createIndex([col_level, col_createdAt, col_stored], ifNotExists: true))
+        try db.run(tbl_logs.createIndex(col_level, col_createdAt, col_order, ifNotExists: true))
+        try db.run(tbl_logs.createIndex(col_createdAt, col_order, ifNotExists: true))
+        try db.run(tbl_logs.createIndex(col_stored, ifNotExists: true))
         
         let config = FTS4Config()
             .column(col_message)

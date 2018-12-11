@@ -47,7 +47,7 @@ public class LogLevelLabel: UILabel {
     private func commonInit() {
         self.clipsToBounds = true
         self.layer.cornerRadius = 3
-        self.font = UIFont.systemFont(ofSize: 9, weight: 500)
+        self.font = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight(rawValue: 500))
         self.textColor = .white
         self.backgroundColor = .darkGray
         self.textAlignment = .center

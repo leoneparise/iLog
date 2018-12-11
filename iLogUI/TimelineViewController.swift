@@ -69,7 +69,7 @@ open class TimelineViewController: UITableViewController {
         tableView.dataSource = dataSource
         tableView.delegate = self
         tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 50
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .onDrag
@@ -169,7 +169,7 @@ open class TimelineViewController: UITableViewController {
         }
     }
     
-    private func apply(changes:[Change], withAddAnimation addAnimation: UITableViewRowAnimation = .top) {
+    private func apply(changes:[Change], withAddAnimation addAnimation: UITableView.RowAnimation = .top) {
         self.tableView.beginUpdates()
         for change in changes {
             if change.createSection {

@@ -13,8 +13,8 @@ struct LogEntryGroup {
     public let timestamp:Date
     public private (set) var entries:[LogEntry]
     
-    init(entry:LogEntry) {
-        self.timestamp = entry.createdAt.startOf(component: .minute)
+    init(entry:LogEntry) {    
+        self.timestamp = entry.createdAt.dateTruncated(from: .minute) ?? entry.createdAt
         self.entries = [entry]
     }
     
@@ -33,10 +33,10 @@ struct LogEntryGroup {
 
 extension LogEntryGroup: Hashable {
     public var hashValue: Int {
-        return timestamp.startOf(component: .minute).hashValue
+        return timestamp.hashValue
     }
 }
 
 func ==(left:LogEntryGroup, rigth:LogEntryGroup) -> Bool {
-    return left.timestamp.compare(to: rigth.timestamp, granularity: .minute) == .orderedSame
+    return left.timestamp.compare(rigth.timestamp) == .orderedSame
 }
