@@ -14,10 +14,22 @@ fileprivate func defaultDateFormatter() -> DateFormatter {
     return df
 }
 
+/// Default console output stream
+public struct ConsoleOutputStream: TextOutputStream {
+    public init() {
+        
+    }
+    
+    mutating public func write(_ string: String) {
+        print(string, terminator: "")
+    }
+}
+
 /// Default console log driver
-public class ConsoleLogDriver: LogDriver {
+public class PrintLogDriver<Target : TextOutputStream>: LogDriver {
     public var level: LogLevel = .debug
     public var didLog: DidLogCallback?
+    private(set) var output: Target
     
     /// Entry format function
     public var logString:(LogEntry) -> String = { entry in
@@ -26,14 +38,15 @@ public class ConsoleLogDriver: LogDriver {
     }
     
     /// Default initializer
-    public init?(level: LogLevel = .debug) {
+    public init?(level: LogLevel = .debug, output: Target) {
         self.level = level
+        self.output = output
     }
     
     public func log(entry: LogEntry) {
         guard entry.level.rawValue >= level.rawValue else { return }
         
-        print(logString(entry))
+        print(logString(entry), to: &output)
         
         DispatchQueue.main.async { [weak self] in
             self?.didLog?(entry)

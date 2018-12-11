@@ -18,11 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        if let sqlLogDriver = SqlLogDriver(), let consoleLogDriver = ConsoleLogDriver() {
+        if let sqlLogDriver = SqlLogDriver(), let consoleLogDriver = PrintLogDriver(output: ConsoleOutputStream()) {
             #if DEBUG
-                LogManager.shared.drivers = [sqlLogDriver, consoleLogDriver]
+                LogManager.setup(sqlLogDriver, consoleLogDriver)
             #else
-                LogManager.shared.drivers = [consoleLogDriver]
+                LogManager.setup(consoleLogDrive)
             #endif
             
             // Uncomment to set shared log level

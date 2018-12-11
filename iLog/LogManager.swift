@@ -32,6 +32,7 @@ public class LogManager {
     private var storeBackgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     private let loggingQueue = DispatchQueue(label: "loggingQueue", qos: .background)
     private let queryQueue = DispatchQueue(label: "queryQueue", qos: .background)
+    private static var sharedInstance: LogManager!
     
     // MARK: Public
     
@@ -54,10 +55,14 @@ public class LogManager {
     }
     
     /// Share instance. Used by log global function
-    public static var shared: LogManager = {
-        let drivers:[LogDriver?] = [SqlLogDriver(), ConsoleLogDriver()]
-        return LogManager(drivers: drivers.compactMap{ $0 })
-    }()
+    public static var shared: LogManager {
+        assert(sharedInstance != nil, "Please, call setup method before using iLog")      
+        return sharedInstance
+    }
+    
+    public static func setup(_ drivers: LogDriver...) {
+        sharedInstance = LogManager(drivers: drivers)
+    }
     
     /// Default initializer
     public init(drivers: [LogDriver]) {

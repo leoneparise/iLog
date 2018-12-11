@@ -10,6 +10,15 @@
 		75E703DB21BC540100882603 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703DA21BC540100882603 /* FilterButton.swift */; };
 		75E703DE21BDC70C00882603 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703DD21BDC70C00882603 /* String+Extras.swift */; };
 		75E703E021BE02AF00882603 /* NSObject+Trottled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703DF21BE02AF00882603 /* NSObject+Trottled.swift */; };
+		75E703E821C006BD00882603 /* LogDriverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703E721C006BD00882603 /* LogDriverTests.swift */; };
+		75E703EA21C006BD00882603 /* iLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; };
+		75E703F121C01AA800882603 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F021C01AA800882603 /* XCTest.framework */; };
+		75E703F421C01AC000882603 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F221C01AC000882603 /* Nimble.framework */; };
+		75E703F521C01AC000882603 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F321C01AC000882603 /* Quick.framework */; };
+		75E703F721C01B0E00882603 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F221C01AC000882603 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		75E703F821C01B0E00882603 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F321C01AC000882603 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		75E703FB21C0272700882603 /* SwiftDate.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F921C0272700882603 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		75E703FC21C0272700882603 /* SQLite.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703FA21C0272700882603 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B940C5861EC60C66000AA020 /* iLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B940C5841EC60C66000AA020 /* iLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B940C5891EC60C67000AA020 /* iLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; };
 		B940C58A1EC60C67000AA020 /* iLog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -45,6 +54,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		75E703EB21C006BD00882603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9FB1B061EC0AF0700EB0D47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B940C5811EC60C66000AA020;
+			remoteInfo = iLog;
+		};
 		B940C5871EC60C67000AA020 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B9FB1B061EC0AF0700EB0D47 /* Project object */;
@@ -55,6 +71,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		75E703F621C01AFD00882603 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				75E703F721C01B0E00882603 /* Nimble.framework in Copy Frameworks */,
+				75E703F821C01B0E00882603 /* Quick.framework in Copy Frameworks */,
+				75E703FB21C0272700882603 /* SwiftDate.framework in Copy Frameworks */,
+				75E703FC21C0272700882603 /* SQLite.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B940C58E1EC60C67000AA020 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -74,6 +104,14 @@
 		75E703DA21BC540100882603 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		75E703DD21BDC70C00882603 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
 		75E703DF21BE02AF00882603 /* NSObject+Trottled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Trottled.swift"; sourceTree = "<group>"; };
+		75E703E521C006BD00882603 /* iLogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75E703E721C006BD00882603 /* LogDriverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDriverTests.swift; sourceTree = "<group>"; };
+		75E703E921C006BD00882603 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75E703F021C01AA800882603 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		75E703F221C01AC000882603 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		75E703F321C01AC000882603 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		75E703F921C0272700882603 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
+		75E703FA21C0272700882603 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		B940C5821EC60C66000AA020 /* iLog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iLog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B940C5841EC60C66000AA020 /* iLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iLog.h; sourceTree = "<group>"; };
 		B940C5851EC60C66000AA020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,6 +145,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		75E703E221C006BD00882603 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75E703F121C01AA800882603 /* XCTest.framework in Frameworks */,
+				75E703EA21C006BD00882603 /* iLog.framework in Frameworks */,
+				75E703F421C01AC000882603 /* Nimble.framework in Frameworks */,
+				75E703F521C01AC000882603 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B940C57E1EC60C66000AA020 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,6 +178,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75E703E621C006BD00882603 /* iLogTests */ = {
+			isa = PBXGroup;
+			children = (
+				75E703E721C006BD00882603 /* LogDriverTests.swift */,
+				75E703E921C006BD00882603 /* Info.plist */,
+			);
+			path = iLogTests;
+			sourceTree = "<group>";
+		};
 		B940C5831EC60C66000AA020 /* iLog */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +237,9 @@
 		B940C5B71EC60F00000AA020 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75E703F221C01AC000882603 /* Nimble.framework */,
+				75E703F321C01AC000882603 /* Quick.framework */,
+				75E703F021C01AA800882603 /* XCTest.framework */,
 				B940C5B81EC60F00000AA020 /* SQLite.framework */,
 				B940C5B91EC60F00000AA020 /* SwiftDate.framework */,
 			);
@@ -188,8 +249,11 @@
 		B9FB1B051EC0AF0700EB0D47 = {
 			isa = PBXGroup;
 			children = (
+				75E703FA21C0272700882603 /* SQLite.framework */,
+				75E703F921C0272700882603 /* SwiftDate.framework */,
 				B9FB1B101EC0AF0700EB0D47 /* iLogExample */,
 				B940C5831EC60C66000AA020 /* iLog */,
+				75E703E621C006BD00882603 /* iLogTests */,
 				B9FB1B0F1EC0AF0700EB0D47 /* Products */,
 				B940C5B71EC60F00000AA020 /* Frameworks */,
 			);
@@ -200,6 +264,7 @@
 			children = (
 				B9FB1B0E1EC0AF0700EB0D47 /* iLogExample.app */,
 				B940C5821EC60C66000AA020 /* iLog.framework */,
+				75E703E521C006BD00882603 /* iLogTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,6 +296,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		75E703E421C006BD00882603 /* iLogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75E703EF21C006BD00882603 /* Build configuration list for PBXNativeTarget "iLogTests" */;
+			buildPhases = (
+				75E703E121C006BD00882603 /* Sources */,
+				75E703E221C006BD00882603 /* Frameworks */,
+				75E703F621C01AFD00882603 /* Copy Frameworks */,
+				75E703E321C006BD00882603 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75E703EC21C006BD00882603 /* PBXTargetDependency */,
+			);
+			name = iLogTests;
+			productName = iLogTests;
+			productReference = 75E703E521C006BD00882603 /* iLogTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B940C5811EC60C66000AA020 /* iLog */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B940C58D1EC60C67000AA020 /* Build configuration list for PBXNativeTarget "iLog" */;
@@ -274,10 +358,15 @@
 		B9FB1B061EC0AF0700EB0D47 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = com.leoneparise;
 				TargetAttributes = {
+					75E703E421C006BD00882603 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = QWZ3RYGB6Z;
+						ProvisioningStyle = Automatic;
+					};
 					B940C5811EC60C66000AA020 = {
 						CreatedOnToolsVersion = 8.3.2;
 						LastSwiftMigration = 1010;
@@ -305,11 +394,19 @@
 			targets = (
 				B9FB1B0D1EC0AF0700EB0D47 /* iLogExample */,
 				B940C5811EC60C66000AA020 /* iLog */,
+				75E703E421C006BD00882603 /* iLogTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		75E703E321C006BD00882603 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B940C5801EC60C66000AA020 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -332,6 +429,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		75E703E121C006BD00882603 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75E703E821C006BD00882603 /* LogDriverTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B940C57D1EC60C66000AA020 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -370,6 +475,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		75E703EC21C006BD00882603 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B940C5811EC60C66000AA020 /* iLog */;
+			targetProxy = 75E703EB21C006BD00882603 /* PBXContainerItemProxy */;
+		};
 		B940C5881EC60C67000AA020 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B940C5811EC60C66000AA020 /* iLog */;
@@ -397,6 +507,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		75E703ED21C006BD00882603 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QWZ3RYGB6Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = iLogTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.leoneparise.iLogTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		75E703EE21C006BD00882603 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QWZ3RYGB6Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = iLogTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.leoneparise.iLogTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		B940C58B1EC60C67000AA020 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -612,6 +773,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		75E703EF21C006BD00882603 /* Build configuration list for PBXNativeTarget "iLogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75E703ED21C006BD00882603 /* Debug */,
+				75E703EE21C006BD00882603 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B940C58D1EC60C67000AA020 /* Build configuration list for PBXNativeTarget "iLog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
