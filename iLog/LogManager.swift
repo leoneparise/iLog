@@ -41,13 +41,8 @@ public class LogManager {
         didSet { didSetLevel() }
     }
     
-    /// Callback used to notify a log event. This callback is called on ANY log event from ANY LogManager.
-    public var didLog: DidLogCallback?
-    
     /// Log manager drivers
-    public var drivers: [LogDriver] = [] {
-        didSet { didSetDrivers() }
-    }
+    public var drivers: [LogDriver] = []
     
     /// First driver from drivers array
     public var mainDriver: LogDriver? {
@@ -66,16 +61,7 @@ public class LogManager {
     
     /// Default initializer
     public init(drivers: [LogDriver]) {
-        self.drivers = drivers
-        didSetDrivers()
-        
-        
-        // Configure observers
-        NotificationCenter.default
-            .addObserver(self,
-                         selector: #selector(onLogNotification(notification:)),
-                         name: Notification.Name.LogManagerDidLog,
-                         object: nil)
+        self.drivers = drivers        
     }
     
     /// Get log history from the main Driver
@@ -98,6 +84,8 @@ public class LogManager {
                 driver.log(entry: entry)
             }
         }
+        
+        postDidLogNotification(entry: entry)
     }
     
     /**
@@ -118,14 +106,18 @@ public class LogManager {
             application.endBackgroundTask(self.storeBackgroundTask) // End background task after 180 seconds
         }
         
-        mainDriver?.store{ [unowned self] (entries, updateEntries) in
-            handler(entries) { success in
-                
-                updateEntries(success)
-                
-                if self.storeBackgroundTask != UIBackgroundTaskIdentifier.invalid {
-                    application.endBackgroundTask(self.storeBackgroundTask) // End background task after save
+        do {
+            try mainDriver?.store{ [unowned self] (entries, complete) in
+                try handler(entries) { success in
+                    try complete(success)                    
+                    if self.storeBackgroundTask != UIBackgroundTaskIdentifier.invalid {
+                        application.endBackgroundTask(self.storeBackgroundTask) // End background task after save
+                    }
                 }
+            }
+        } catch {
+            if self.storeBackgroundTask != UIBackgroundTaskIdentifier.invalid {
+                application.endBackgroundTask(self.storeBackgroundTask) // End background task if there is an error
             }
         }
     }
@@ -136,15 +128,6 @@ public class LogManager {
             guard let wself = self else { return }
             for driver in wself.drivers {
                 driver.clear()
-            }
-        }
-    }
-    
-    // MARK: Private
-    private func didSetDrivers() {
-        if let driver = self.mainDriver {
-            driver.didLog = { [weak self] entry in
-                self?.postDidLogNotification(entry: entry)
             }
         }
     }
@@ -162,11 +145,6 @@ public class LogManager {
 
 // MARK: - Notification
 extension LogManager {
-    @objc fileprivate func onLogNotification(notification: Notification) {
-        guard let entry = notification.object as? LogEntry else { return }
-        self.didLog?(entry)
-    }
-    
     fileprivate func postDidLogNotification(entry: LogEntry) {
         NotificationCenter.default.post(name: Notification.Name.LogManagerDidLog, object: entry)
     }

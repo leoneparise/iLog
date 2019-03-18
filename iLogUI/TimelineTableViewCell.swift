@@ -12,7 +12,45 @@ public protocol TimelineTableViewCellType:class {
     var expanded:Bool { get set }
 }
 
-class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
+public class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
+    public struct ViewModel {
+        private let entry:LogEntry
+        let isLast:Bool
+        
+        init(entry:LogEntry, isLast:Bool = false) {
+            self.entry = entry
+            self.isLast = isLast
+        }
+        
+        var message:String {
+            return entry.message
+        }
+        
+        var file:String {
+            return "\(entry.file):"
+        }
+        
+        var line:String {
+            return "\(entry.line)"
+        }
+        
+        var function:String {
+            return entry.function
+        }
+        
+        var levelText:String {
+            return entry.level.stringValue.uppercased()
+        }
+        
+        var levelColor:UIColor {
+            return entry.level.color
+        }
+        
+        var createdAt:String {
+            return String(format: "%02d", Calendar.current.component(.second, from: entry.createdAt))
+        }
+    }
+        
     @IBOutlet weak var bulletView:TimelineBulletView!
     @IBOutlet weak var levelLabel:LogLevelLabel!
     @IBOutlet weak var fileLabel:UILabel!
@@ -21,40 +59,21 @@ class TimelineTableViewCell: UITableViewCell, TimelineTableViewCellType {
     @IBOutlet weak var dateLabel:UILabel!
     @IBOutlet weak var functionLabel:UILabel!
             
-    var expanded:Bool = false {
+    public var expanded:Bool = false {
         didSet {
             messageLabel.numberOfLines = expanded ? 0 : 2
             functionLabel.isHidden = !expanded
         }
     }
     
-    var line:UInt? {
-        didSet { lineLabel.text = line != nil ? "\(line!)" : "" }
-    }
-    
-    var message:String? {
-        didSet { messageLabel.text = message }
-    }
-    
-    var file:String? {
-        didSet { fileLabel.text = file != nil ? "\(file!):" : "" }
-    }
-    
-    var level:LogLevel = .debug {
-        didSet {
-            levelLabel.level = level
-        }
-    }
-    
-    var createdAt:Date = Date() {
-        didSet { dateLabel.text = String(format: "%02d", createdAt.second) }
-    }
-    
-    var function:String? {
-        didSet { functionLabel.text = function }
-    }
-    
-    var isLast:Bool = false {
-        didSet { bulletView.isLast = isLast }
+    func configure(_ model:ViewModel) {
+        lineLabel.text = model.line
+        messageLabel.text = model.message
+        fileLabel.text = model.file
+        functionLabel.text = model.function
+        levelLabel.text = model.levelText
+        levelLabel.backgroundColor = model.levelColor
+        dateLabel.text = model.createdAt
+        bulletView.isLast = model.isLast
     }
 }

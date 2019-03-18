@@ -17,8 +17,11 @@
 		75E703F521C01AC000882603 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F321C01AC000882603 /* Quick.framework */; };
 		75E703F721C01B0E00882603 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F221C01AC000882603 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		75E703F821C01B0E00882603 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F321C01AC000882603 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		75E703FB21C0272700882603 /* SwiftDate.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703F921C0272700882603 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		75E703FC21C0272700882603 /* SQLite.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 75E703FA21C0272700882603 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		75E703FE21C086A400882603 /* Date+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E703FD21C086A400882603 /* Date+Extras.swift */; };
+		75E7040121C1467D00882603 /* LogLevel+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7040021C1467D00882603 /* LogLevel+Color.swift */; };
+		75E7040321C198A800882603 /* LogManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7040221C198A800882603 /* LogManagerTests.swift */; };
+		75E7040521C19AE000882603 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7040421C19AE000882603 /* Exceptions.swift */; };
 		B940C5861EC60C66000AA020 /* iLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B940C5841EC60C66000AA020 /* iLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B940C5891EC60C67000AA020 /* iLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; };
 		B940C58A1EC60C67000AA020 /* iLog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5821EC60C66000AA020 /* iLog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -41,11 +44,8 @@
 		B940C5B41EC60C94000AA020 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B940C5AE1EC60C94000AA020 /* LogManager.swift */; };
 		B940C5B61EC60C94000AA020 /* SqlLogDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B940C5B01EC60C94000AA020 /* SqlLogDriver.swift */; };
 		B940C5BA1EC60F00000AA020 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B81EC60F00000AA020 /* SQLite.framework */; };
-		B940C5BB1EC60F00000AA020 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B91EC60F00000AA020 /* SwiftDate.framework */; };
 		B940C5BC1EC60F4F000AA020 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B81EC60F00000AA020 /* SQLite.framework */; };
 		B940C5BD1EC60F4F000AA020 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B81EC60F00000AA020 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B940C5BE1EC60F4F000AA020 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B91EC60F00000AA020 /* SwiftDate.framework */; };
-		B940C5BF1EC60F4F000AA020 /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B940C5B91EC60F00000AA020 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B9FB1B121EC0AF0700EB0D47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB1B111EC0AF0700EB0D47 /* AppDelegate.swift */; };
 		B9FB1B141EC0AF0700EB0D47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB1B131EC0AF0700EB0D47 /* ViewController.swift */; };
 		B9FB1B171EC0AF0700EB0D47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9FB1B151EC0AF0700EB0D47 /* Main.storyboard */; };
@@ -79,7 +79,6 @@
 			files = (
 				75E703F721C01B0E00882603 /* Nimble.framework in Copy Frameworks */,
 				75E703F821C01B0E00882603 /* Quick.framework in Copy Frameworks */,
-				75E703FB21C0272700882603 /* SwiftDate.framework in Copy Frameworks */,
 				75E703FC21C0272700882603 /* SQLite.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -92,7 +91,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				B940C5BD1EC60F4F000AA020 /* SQLite.framework in Embed Frameworks */,
-				B940C5BF1EC60F4F000AA020 /* SwiftDate.framework in Embed Frameworks */,
 				B940C58A1EC60C67000AA020 /* iLog.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -110,8 +108,11 @@
 		75E703F021C01AA800882603 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		75E703F221C01AC000882603 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		75E703F321C01AC000882603 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
-		75E703F921C0272700882603 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		75E703FA21C0272700882603 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
+		75E703FD21C086A400882603 /* Date+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extras.swift"; sourceTree = "<group>"; };
+		75E7040021C1467D00882603 /* LogLevel+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogLevel+Color.swift"; sourceTree = "<group>"; };
+		75E7040221C198A800882603 /* LogManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManagerTests.swift; sourceTree = "<group>"; };
+		75E7040421C19AE000882603 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 		B940C5821EC60C66000AA020 /* iLog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iLog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B940C5841EC60C66000AA020 /* iLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iLog.h; sourceTree = "<group>"; };
 		B940C5851EC60C66000AA020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -161,7 +162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B940C5BA1EC60F00000AA020 /* SQLite.framework in Frameworks */,
-				B940C5BB1EC60F00000AA020 /* SwiftDate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +170,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B940C5BC1EC60F4F000AA020 /* SQLite.framework in Frameworks */,
-				B940C5BE1EC60F4F000AA020 /* SwiftDate.framework in Frameworks */,
 				B940C5891EC60C67000AA020 /* iLog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +180,7 @@
 		75E703E621C006BD00882603 /* iLogTests */ = {
 			isa = PBXGroup;
 			children = (
+				75E7040221C198A800882603 /* LogManagerTests.swift */,
 				75E703E721C006BD00882603 /* LogDriverTests.swift */,
 				75E703E921C006BD00882603 /* Info.plist */,
 			);
@@ -206,15 +206,18 @@
 				B940C5921EC60C86000AA020 /* LogViewerViewController.swift */,
 				B940C5931EC60C86000AA020 /* TimelineDatasource.swift */,
 				B940C5951EC60C86000AA020 /* TimelineViewController.swift */,
-				B940C5961EC60C86000AA020 /* CloseButton.swift */,
-				75E703DA21BC540100882603 /* FilterButton.swift */,
 				B940C5971EC60C86000AA020 /* TimelineBulletView.swift */,
 				B940C5941EC60C86000AA020 /* TimelineTableViewCell.swift */,
 				B940C5981EC60C86000AA020 /* TimelineTableViewCell.xib */,
 				B940C5991EC60C86000AA020 /* TimelineTableViewHeader.swift */,
 				B940C59A1EC60C86000AA020 /* TimelineTableViewHeader.xib */,
+				B940C5961EC60C86000AA020 /* CloseButton.swift */,
+				75E703DA21BC540100882603 /* FilterButton.swift */,
 				B940C59B1EC60C86000AA020 /* UIColor+Hex.swift */,
 				B940C59C1EC60C86000AA020 /* UIView+Draw.swift */,
+				75E703FD21C086A400882603 /* Date+Extras.swift */,
+				75E703DF21BE02AF00882603 /* NSObject+Trottled.swift */,
+				75E7040021C1467D00882603 /* LogLevel+Color.swift */,
 			);
 			name = UI;
 			path = ../iLogUI;
@@ -229,7 +232,7 @@
 				B940C5AE1EC60C94000AA020 /* LogManager.swift */,
 				B940C5B01EC60C94000AA020 /* SqlLogDriver.swift */,
 				75E703DD21BDC70C00882603 /* String+Extras.swift */,
-				75E703DF21BE02AF00882603 /* NSObject+Trottled.swift */,
+				75E7040421C19AE000882603 /* Exceptions.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -250,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				75E703FA21C0272700882603 /* SQLite.framework */,
-				75E703F921C0272700882603 /* SwiftDate.framework */,
 				B9FB1B101EC0AF0700EB0D47 /* iLogExample */,
 				B940C5831EC60C66000AA020 /* iLog */,
 				75E703E621C006BD00882603 /* iLogTests */,
@@ -364,7 +366,6 @@
 				TargetAttributes = {
 					75E703E421C006BD00882603 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = QWZ3RYGB6Z;
 						ProvisioningStyle = Automatic;
 					};
 					B940C5811EC60C66000AA020 = {
@@ -433,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75E7040321C198A800882603 /* LogManagerTests.swift in Sources */,
 				75E703E821C006BD00882603 /* LogDriverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B940C5B61EC60C94000AA020 /* SqlLogDriver.swift in Sources */,
+				75E7040121C1467D00882603 /* LogLevel+Color.swift in Sources */,
 				B940C59E1EC60C86000AA020 /* LogLevelLabel.swift in Sources */,
 				B940C5A01EC60C86000AA020 /* TimelineDatasource.swift in Sources */,
 				B940C5B11EC60C94000AA020 /* ConsoleLogDriver.swift in Sources */,
@@ -457,9 +460,11 @@
 				B940C5A41EC60C86000AA020 /* TimelineBulletView.swift in Sources */,
 				B940C5B31EC60C94000AA020 /* LogEntry.swift in Sources */,
 				B940C59D1EC60C86000AA020 /* LogEntryGroup.swift in Sources */,
+				75E703FE21C086A400882603 /* Date+Extras.swift in Sources */,
 				B940C5A21EC60C86000AA020 /* TimelineViewController.swift in Sources */,
 				B940C5B21EC60C94000AA020 /* LogDriver.swift in Sources */,
 				B940C5A81EC60C86000AA020 /* UIColor+Hex.swift in Sources */,
+				75E7040521C19AE000882603 /* Exceptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +520,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QWZ3RYGB6Z;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -541,7 +546,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QWZ3RYGB6Z;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

@@ -9,6 +9,7 @@
 import XCTest
 import Quick
 import Nimble
+import SQLite
 @testable import iLog
 
 struct StringArrayOutputStream: TextOutputStream {
@@ -25,8 +26,8 @@ struct StringArrayOutputStream: TextOutputStream {
 }
 
 class LogDriverTests: QuickSpec {
-    override func spec() {
-        describe("console driver") {
+    override func spec() {                
+        describe("Console driver") {
             var driver:PrintLogDriver<StringArrayOutputStream>!
             beforeEach {
                 driver = PrintLogDriver(level: .info, output: StringArrayOutputStream())
@@ -34,19 +35,30 @@ class LogDriverTests: QuickSpec {
             }
             
             it("should log info") {
-                log(.info, "some text")
+                let entry = LogEntry(level: .info, file: "TestFile", line: 10, function: "testFunction", message: "some text")
+                driver.log(entry: entry)
+                
                 expect(driver.output.lines.count).toEventually(equal(1))
                 expect(driver.output.lines[0]).toEventually(contain("info", "some text"))
             }
             
             it("should ignore debug") {
-                log(.debug, "should be ignored")
+                let entry = LogEntry(level: .debug, file: "TestFile", line: 10, function: "testFunction", message: "should be ignored")
+                driver.log(entry: entry)
+                
                 expect(driver.output.lines.count).toEventually(equal(0))
             }
             
             it("should log in sequence") {
-                log(.info, "one")
-                log(.info, "two")
+                let entries = [
+                    LogEntry(level: .info, file: "TestFile", line: 10, function: "testFunction", message: "one"),
+                    LogEntry(level: .info, file: "TestFile", line: 10, function: "testFunction", message: "two")
+                ]
+                
+                for entry in entries {
+                    driver.log(entry: entry)
+                }
+                
                 expect(driver.output.lines.count).toEventually(equal(2))
                 expect(driver.output.lines[0]).toEventually(contain("one"))
                 expect(driver.output.lines[0]).toEventuallyNot(contain("two"))
@@ -54,16 +66,100 @@ class LogDriverTests: QuickSpec {
                 expect(driver.output.lines[1]).toEventuallyNot(contain("one"))
             }
             
-            it("should fire didLog") {
-                var entry:LogEntry?
-                LogManager.shared.didLog = { e in
-                    entry = e
+            it("should return nil in filter") {
+                let entry = LogEntry(level: .debug, file: "TestFile", line: 10, function: "testFunction", message: "should be ignored")
+                driver.log(entry: entry)
+                
+                var filterEntries:[LogEntry]?
+                driver.filter { (entries) in
+                    filterEntries = entries
                 }
                 
-                log(.info, "did log")
+                expect(filterEntries).to(beNil())
+            }
+            
+            it("should throw an error in store") {
+                let entry = LogEntry(level: .debug, file: "TestFile", line: 10, function: "testFunction", message: "should be ignored")
+                driver.log(entry: entry)
                 
+                expect{
+                    try driver.store{ (entries, complete) in try complete(true) }
+                }.to(throwError(iLogError.notSupported))
+            }
+            
+            it("should fire didLog") {
+                var entry:LogEntry?
+                
+                driver.didLog = { log in
+                    entry = log
+                }
+                
+                log(.info, "didLog fired")
                 expect(entry).toEventuallyNot(beNil())
-                expect(entry?.message).toEventually(contain("did log"))
+                expect(entry?.message).toEventually(contain("didLog fired"))
+            }
+        }
+        
+        describe("SQL driver") {
+            var driver:SqlLogDriver!
+            beforeEach {
+                driver = SqlLogDriver(level: .info, inMemory: true)
+                LogManager.setup(driver!)
+            }
+            
+            it("should log info") {
+                let entry = LogEntry(level: .info, file: "TestFile", line: 10, function: "testFunction", message: "some message")
+                driver.log(entry: entry)
+                
+                var count:Int64 = 0
+                expect{ count = try driver.db.scalar("SELECT COUNT(*) FROM logs") as! Int64 }.toNot(throwError())
+                expect(count).to(equal(1))
+            }
+            
+            it("should ignore debug") {
+                let entry = LogEntry(level: .debug, file: "TestFile", line: 10, function: "testFunction", message: "should be ignored")
+                driver.log(entry: entry)
+                
+                var count:Int64 = 0
+                expect{ count = try driver.db.scalar("SELECT COUNT(*) FROM logs") as! Int64 }.toNot(throwError())
+                expect(count).to(equal(0))
+            }
+            
+            it("should log in sequence") {
+                let entries = [
+                    LogEntry(level: .info, file: "TestFile", line: 10, function: "testFunction", message: "one"),
+                    LogEntry(level: .info, file: "TestFile", line: 10, function: "testFunction", message: "two"),
+                    LogEntry(level: .debug, file: "TestFile", line: 10, function: "testFunction", message: "three")
+                ]
+                
+                for entry in entries {
+                    driver.log(entry: entry)
+                }
+                
+                // Check if database has 2 entries
+                var count:Int64 = 0
+                expect{ count = try driver.db.scalar("SELECT COUNT(*) FROM logs") as! Int64 }.toNot(throwError())
+                expect(count).to(equal(2))
+                
+                // Check if entries were stored in sequence
+                var stmt:Statement!
+                expect{ stmt = try driver.db.prepare("SELECT message FROM logs") }.toNot(throwError())
+                for (index, row) in stmt.enumerated() {
+                    let message:String = row[0] as! String
+                    expect(message).to(equal(entries[index].message))
+                }
+            }
+            
+            it("should fire didLog") {
+                var entry:LogEntry?
+                
+                driver.didLog = { log in
+                    entry = log
+                }
+                
+                log(.info, "didLog fired")
+                expect(entry).toEventuallyNot(beNil())
+                expect(entry?.message).toEventually(contain("didLog fired"))
             }
         }
     }

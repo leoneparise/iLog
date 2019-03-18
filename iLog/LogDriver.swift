@@ -12,10 +12,10 @@ import Foundation
 public typealias DidLogCallback = ((LogEntry) -> Void)
 
 /// Callback used to know if the store was completed
-public typealias StoredLogCallback = ((Bool) -> Void)
+public typealias StoredLogCallback = ((Bool) throws -> Void)
 
 /// Store handler
-public typealias StoreHandler = (([LogEntry], StoredLogCallback) -> Void)
+public typealias StoreHandler = (([LogEntry], StoredLogCallback) throws -> Void)
 
 public protocol LogDriver:class {
     /// Function called when a log is send by this driver
@@ -48,8 +48,9 @@ public protocol LogDriver:class {
      **Some drivers doesn't suppor store (eg: ConsoleLogDriver)**
      
      - parameter: handler Store function handler
+     - throws: iLogError.notSupported if the driver does not support store
      */
-    func store(_ handler: StoreHandler)
+    func store(_ handler: StoreHandler) throws
     
     /// Clear logs. **Some drivers doesn't support clear**
     func clear()

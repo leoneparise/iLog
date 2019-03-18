@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Uncomment to set shared log level
             //LogManager.shared.level = .info
         }
-        
+                
         return true
     }
 

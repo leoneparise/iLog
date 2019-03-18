@@ -14,7 +14,7 @@ public class SqlLogDriver: LogDriver {
     // MARK - Public Properties
     public var level: LogLevel = .debug
     public var didLog: DidLogCallback?
-    fileprivate var db:Connection
+    public let db:Connection
     
     // MARK: - Data Definition
     fileprivate let tbl_logs = Table("logs")
@@ -39,6 +39,7 @@ public class SqlLogDriver: LogDriver {
     public init?(level:LogLevel = .debug, logFile:String = "logs.sqlite3", inMemory:Bool = false) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
         let logFileUrl = documentDirectory.appendingPathComponent(logFile)
+        self.level = level
         
         do {
             if inMemory {
@@ -83,7 +84,7 @@ public class SqlLogDriver: LogDriver {
     
     // MARK: - Public Functions
     public func log(entry:LogEntry) {
-        guard entry.level.rawValue >= level.rawValue else { return }
+        guard entry.level >= level else { return }
         
         do {
             try db.transaction { [weak self] in
@@ -129,22 +130,23 @@ public class SqlLogDriver: LogDriver {
                                       offset: offset)
         }
         
-        let entries = getEntries(query: query)
+        let entries = try? getEntries(query: query)
         
         DispatchQueue.main.async {
             completion(entries)
         }
     }
     
-    public func store(_ handler: ([LogEntry], (Bool) -> Void) -> Void) {
+    public func store(_ handler: StoreHandler) throws {
         let query = tbl_logs.filter(col_stored == false)
-                            .order(col_createdAt.asc, col_order.asc)
-        
-        let entries = getEntries(query: query)
-        handler(entries) { success in
+                            .order(col_createdAt.asc, col_order.asc)        
+        let entries = try getEntries(query: query)
+        try handler(entries) { success in
             if success {
-                for entry in entries {
-                    update(entry: entry)
+                try db.transaction {
+                    for entry in entries {
+                        try update(entry: entry)
+                    }
                 }
             }
         }
@@ -159,47 +161,38 @@ public class SqlLogDriver: LogDriver {
                 try wself.db.run(wself.vtbl_logs.delete())
             }
         } catch {
-            print("iLog >> Can't clear log \(error)")
+            print("iLog >> Can't clear logs \(error)")
         }
     }
 }
 
 // MARK
 fileprivate extension SqlLogDriver {
-    func getEntries(query:Table) -> [LogEntry] {
+    func getEntries(query:Table) throws -> [LogEntry] {
         var entries:[LogEntry] = []
-        
-        do {
-            for log in try db.prepare(query) {
-                let entry = LogEntry(
-                    createdAt: Date(timeIntervalSince1970: TimeInterval(log[col_createdAt])),
-                    order: log[col_order],
-                    stored: log[col_stored],
-                    level: LogLevel(rawValue: log[col_level])!,
-                    file: log[col_file],
-                    line: UInt(log[col_line]),
-                    function: log[col_function],
-                    message: log[col_message]
-                )
-                
-                entries.append(entry)
-            }
-        } catch {
-            print("iLog >> Can't fetch logs: \(error)")
+        for log in try db.prepare(query) {
+            let entry = LogEntry(
+                createdAt: Date(timeIntervalSince1970: TimeInterval(log[col_createdAt])),
+                order: log[col_order],
+                stored: log[col_stored],
+                level: LogLevel(rawValue: log[col_level])!,
+                file: log[col_file],
+                line: UInt(log[col_line]),
+                function: log[col_function],
+                message: log[col_message]
+            )
+            
+            entries.append(entry)
         }
         
         return entries
     }
     
-    func update(entry:LogEntry) {
+    func update(entry:LogEntry) throws {
         let log = tbl_logs.filter(col_createdAt == Int64(entry.createdAt.timeIntervalSince1970)
                                && col_order == entry.order)
-        do {
-            if try db.run(log.update(col_stored <- true)) == 0 {
-                print("iLog >> Log not found")
-            }
-        } catch {
-            print("iLog >> Can't update log \(error)")
+        if try db.run(log.update(col_stored <- true)) == 0 {
+            print("iLog >> Could not update log entry")
         }
     }
     

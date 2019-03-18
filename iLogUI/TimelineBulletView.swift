@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class TimelineBulletView: UIView {
+public class TimelineBulletView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -24,7 +24,7 @@ class TimelineBulletView: UIView {
         self.contentMode = .center
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         self.setNeedsDisplay()
     }
@@ -60,7 +60,7 @@ class TimelineBulletView: UIView {
     }
     
     // MARK: Draw
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         let (w, h) = (rect.width, rect.height)
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         

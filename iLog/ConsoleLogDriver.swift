@@ -58,8 +58,8 @@ public class PrintLogDriver<Target : TextOutputStream>: LogDriver {
     }
     
     /// Not supported
-    public func store(_ handler: ([LogEntry], (Bool) -> Void) -> Void) {
-        
+    public func store(_ handler: StoreHandler) throws {
+        throw iLogError.notSupported
     }
     
     /// Not supported

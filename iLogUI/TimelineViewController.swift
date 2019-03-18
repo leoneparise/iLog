@@ -23,6 +23,7 @@ open class TimelineViewController: UITableViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+                
         title = "Log Viewer"
         
         // Configure log manager
@@ -41,13 +42,7 @@ open class TimelineViewController: UITableViewController {
         
         dataSource.configureCell = { cell, entry, isLast in
             guard let entryCell = cell as? TimelineTableViewCell else { return }
-            entryCell.level = entry.level
-            entryCell.file = entry.file
-            entryCell.line = entry.line
-            entryCell.message = entry.message
-            entryCell.createdAt = entry.createdAt
-            entryCell.function = entry.function
-            entryCell.isLast = isLast
+            entryCell.configure(TimelineTableViewCell.ViewModel(entry: entry, isLast: isLast))
         }
         
         dataSource.didSet = { [unowned self] _ in

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimelineTableViewHeader: UIVisualEffectView {
+public class TimelineTableViewHeader: UIVisualEffectView {
     @IBOutlet weak var bulletView:TimelineBulletView!
     @IBOutlet weak var titleLabel:UILabel!
     

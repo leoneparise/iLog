@@ -7,14 +7,13 @@
 //
 
 import Foundation
-import SwiftDate
 
 struct LogEntryGroup {
     public let timestamp:Date
     public private (set) var entries:[LogEntry]
     
     init(entry:LogEntry) {    
-        self.timestamp = entry.createdAt.dateTruncated(from: .minute) ?? entry.createdAt
+        self.timestamp = entry.createdAt.start(of: .minute)
         self.entries = [entry]
     }
     

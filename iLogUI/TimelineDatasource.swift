@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftDate
 
 struct Change {
     enum ChangeType { case add, update, sectionUpdate }

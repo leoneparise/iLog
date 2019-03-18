@@ -54,7 +54,8 @@ open class LogEntry {
     public let stored:Bool
     
     /// Default initializer
-    public init(createdAt: Date?, order:Int64?, stored:Bool?, level:LogLevel, file:String, line:UInt, function:String, message:String) {
+    public init(createdAt: Date? = nil, order:Int64? = nil, stored:Bool? = nil,
+                level:LogLevel, file:String, line:UInt, function:String, message:String) {
         self.level = level
         self.message = message
         self.file = file
@@ -117,7 +118,6 @@ public func >= (left:LogEntry, right:LogEntry) -> Bool {
 extension LogLevel: Comparable { }
 public func < (left:LogLevel, right:LogLevel) -> Bool {
     return left.rawValue < right.rawValue
-    
 }
 
 public func <= (left:LogLevel, right:LogLevel) -> Bool {
